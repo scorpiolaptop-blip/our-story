@@ -1,9 +1,8 @@
-// Our Story Service Worker
-const CACHE_NAME = 'ourstory-v1';
+// Our Story Service Worker v2
+const CACHE_NAME = 'ourstory-v2';
 const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
+  './index.html',
+  './manifest.json',
   'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap'
 ];
 
@@ -27,12 +26,14 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
-// Fetch — cache first for assets, network first for API
+// Fetch
 self.addEventListener('fetch', event => {
   if (event.request.url.includes('firestore.googleapis.com') ||
       event.request.url.includes('firebase') ||
-      event.request.url.includes('anthropic')) {
-    return; // skip Firebase/API calls
+      event.request.url.includes('anthropic') ||
+      event.request.url.includes('fonts.googleapis') ||
+      event.request.url.includes('fonts.gstatic')) {
+    return;
   }
   event.respondWith(
     caches.match(event.request).then(cached => {
@@ -53,12 +54,9 @@ self.addEventListener('push', event => {
   const title = data.title || 'Our Story 🌸';
   const options = {
     body: data.body || 'You have a new message 💌',
-    icon: data.icon || '/icon-192.png',
-    badge: '/icon-192.png',
     tag: data.tag || 'ourstory-notif',
     requireInteraction: true,
     vibrate: [200, 100, 200],
-    data: { url: data.url || '/' }
   };
   event.waitUntil(self.registration.showNotification(title, options));
 });
@@ -69,22 +67,9 @@ self.addEventListener('notificationclick', event => {
   event.waitUntil(
     clients.matchAll({ type: 'window' }).then(list => {
       for (const client of list) {
-        if (client.url === '/' && 'focus' in client) return client.focus();
+        if ('focus' in client) return client.focus();
       }
-      if (clients.openWindow) return clients.openWindow('/');
+      if (clients.openWindow) return clients.openWindow('./');
     })
   );
 });
-
-// Background sync
-self.addEventListener('sync', event => {
-  if (event.tag === 'sync-messages') {
-    event.waitUntil(syncOfflineData());
-  }
-});
-
-async function syncOfflineData() {
-  // Sync any queued offline data when connection restores
-  const cache = await caches.open(CACHE_NAME);
-  return cache;
-}
