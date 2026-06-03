@@ -1,0 +1,1982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<meta http-equiv="Pragma" content="no-cache"/>
+<meta http-equiv="Expires" content="0"/>
+<!-- Our Story v2.1 — Zain & Fatima -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Our Story 🌸</title>
+<meta name="theme-color" content="#f9a8d4"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+<meta name="apple-mobile-web-app-title" content="Our Story"/>
+<link rel="manifest" href="manifest.json"/>
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>"/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ============================================================
+   TOKENS & RESET
+   ============================================================ */
+:root{
+  --pink-50:#fdf2f8;--pink-100:#fce7f3;--pink-200:#fbcfe8;--pink-300:#f9a8d4;
+  --pink-400:#f472b6;--pink-500:#ec4899;--pink-600:#db2777;
+  --rose-100:#ffe4e6;--rose-200:#fecdd3;--rose-400:#fb7185;--rose-500:#f43f5e;
+  --glass:rgba(255,255,255,0.72);--glass-border:rgba(249,168,212,0.35);
+  --shadow:0 8px 32px rgba(236,72,153,0.12);--shadow-lg:0 16px 48px rgba(236,72,153,0.18);
+  --text-primary:#4a1530;--text-secondary:#8b4563;--text-muted:#b07090;
+  --sidebar-w:240px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,#fdf2f8 0%,#fce7f3 30%,#fff1f5 60%,#fdf2f8 100%);min-height:100vh;color:var(--text-primary);overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 20% 10%,rgba(249,168,212,0.25) 0%,transparent 60%),radial-gradient(ellipse 50% 50% at 80% 80%,rgba(244,114,182,0.15) 0%,transparent 60%),radial-gradient(ellipse 40% 60% at 50% 50%,rgba(251,207,232,0.2) 0%,transparent 70%);pointer-events:none;z-index:0}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--pink-300);border-radius:2px}
+
+/* ============================================================
+   LOGIN
+   ============================================================ */
+#loginScreen{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#fdf2f8,#fce7f3,#fff1f5);padding:24px}
+#loginScreen::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 30% 20%,rgba(249,168,212,0.35) 0%,transparent 60%),radial-gradient(ellipse 60% 80% at 70% 80%,rgba(244,114,182,0.2) 0%,transparent 60%)}
+.login-card{position:relative;background:var(--glass);backdrop-filter:blur(20px);border:1.5px solid var(--glass-border);border-radius:28px;padding:44px 36px;width:100%;max-width:380px;box-shadow:var(--shadow-lg);text-align:center;animation:fadeSlideUp 0.6s cubic-bezier(0.34,1.56,0.64,1)}
+.login-blossom{font-size:52px;margin-bottom:12px;display:block;animation:bloom 1.2s ease}
+@keyframes bloom{0%{transform:scale(0) rotate(-20deg);opacity:0}80%{transform:scale(1.1) rotate(3deg)}100%{transform:scale(1) rotate(0);opacity:1}}
+.login-title{font-family:'Playfair Display',serif;font-size:28px;color:var(--pink-600);font-style:italic;margin-bottom:4px}
+.login-sub{font-size:13px;color:var(--text-muted);margin-bottom:32px;letter-spacing:0.3px}
+.input-group{position:relative;margin-bottom:16px;text-align:left}
+.input-group label{font-size:11px;font-weight:600;color:var(--text-secondary);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px;display:block}
+.input-group input{width:100%;padding:13px 16px;background:rgba(255,255,255,0.8);border:1.5px solid var(--pink-200);border-radius:14px;font-size:15px;font-family:'DM Sans',sans-serif;color:var(--text-primary);outline:none;transition:all 0.2s}
+.input-group input:focus{border-color:var(--pink-400);background:white;box-shadow:0 0 0 4px rgba(244,114,182,0.12)}
+.login-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--pink-400),var(--pink-500));border:none;border-radius:14px;color:white;font-size:16px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;margin-top:8px;box-shadow:0 4px 16px rgba(244,114,182,0.4);transition:all 0.2s}
+.login-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(244,114,182,0.5)}
+.login-error{background:rgba(244,63,94,0.1);border:1px solid rgba(244,63,94,0.3);color:#be123c;border-radius:10px;padding:10px 14px;font-size:13px;margin-top:12px;display:none}
+#deniedScreen{display:none;position:fixed;inset:0;z-index:1001;background:linear-gradient(135deg,#1a0010,#2d0020);flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
+.denied-icon{font-size:80px;margin-bottom:20px;display:block;animation:shake 0.5s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+.denied-title{font-family:'Playfair Display',serif;font-size:32px;color:#ff4070;margin-bottom:10px}
+.denied-sub{color:rgba(255,255,255,0.5);margin-bottom:30px}
+.denied-back{padding:12px 28px;background:rgba(255,64,112,0.2);border:1px solid rgba(255,64,112,0.4);color:#ff4070;border-radius:12px;cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif}
+
+/* ============================================================
+   APP SHELL
+   ============================================================ */
+#app{display:none;position:relative;z-index:1;min-height:100vh}
+.sidebar{display:none;position:fixed;left:0;top:0;bottom:0;width:var(--sidebar-w);background:rgba(253,242,248,0.96);backdrop-filter:blur(20px);border-right:1px solid var(--glass-border);z-index:200;flex-direction:column;padding:28px 0 20px}
+.sidebar-brand{padding:0 24px 24px;border-bottom:1px solid var(--glass-border)}
+.sidebar-title{font-family:'Playfair Display',serif;font-size:21px;color:var(--pink-600);font-style:italic}
+.sidebar-sub{font-size:11px;color:var(--text-muted);margin-top:2px}
+.sidebar-nav{flex:1;overflow-y:auto;padding:12px 0}
+.sidebar-item{display:flex;align-items:center;gap:12px;padding:11px 24px;cursor:pointer;transition:all 0.18s;border:none;background:none;width:100%;text-align:left;font-family:'DM Sans',sans-serif;color:var(--text-secondary);font-size:14px;font-weight:500;position:relative}
+.sidebar-item:hover{background:rgba(249,168,212,0.15);color:var(--pink-600)}
+.sidebar-item.active{background:linear-gradient(90deg,rgba(244,114,182,0.18),rgba(236,72,153,0.06));color:var(--pink-600);font-weight:600}
+.sidebar-item.active::before{content:'';position:absolute;left:0;top:20%;bottom:20%;width:3px;background:linear-gradient(180deg,var(--pink-400),var(--pink-500));border-radius:0 3px 3px 0}
+.sidebar-icon{font-size:17px;width:22px;text-align:center;flex-shrink:0}
+.sidebar-badge{margin-left:auto;background:var(--pink-500);color:white;border-radius:10px;padding:2px 7px;font-size:11px;font-weight:700}
+.sidebar-footer{padding:14px 24px;border-top:1px solid var(--glass-border)}
+.sidebar-notif-row{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-muted);cursor:pointer;padding:4px 0}
+.app-main{min-height:100vh;padding-bottom:90px;transition:margin-left 0.3s}
+.app-header{position:sticky;top:0;z-index:100;background:rgba(253,242,248,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--glass-border);padding:13px 20px 11px}
+.header-inner{display:flex;align-items:center;justify-content:space-between;max-width:900px;margin:0 auto}
+.header-title{font-family:'Playfair Display',serif;font-size:22px;color:var(--pink-600);font-style:italic}
+.header-sub{font-size:10px;color:var(--text-muted);letter-spacing:0.3px;margin-top:1px}
+.header-right{display:flex;align-items:center;gap:8px}
+.header-btn{width:38px;height:38px;background:var(--glass);border:1px solid var(--glass-border);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;box-shadow:var(--shadow);transition:all 0.2s}
+.header-btn:hover{transform:scale(1.06)}
+.install-banner{background:linear-gradient(135deg,rgba(255,255,255,0.9),rgba(252,231,243,0.8));border:1.5px solid var(--glass-border);border-radius:18px;padding:13px 16px;margin:12px 16px 0;display:none;align-items:center;gap:12px;box-shadow:var(--shadow)}
+.install-banner-text{flex:1;font-size:13px;color:var(--text-secondary)}
+.install-banner-text strong{color:var(--pink-600);display:block;font-size:14px;margin-bottom:1px}
+.install-banner-btn{padding:8px 14px;background:linear-gradient(135deg,var(--pink-400),var(--pink-500));border:none;border-radius:10px;color:white;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
+.install-banner-close{background:none;border:none;font-size:18px;color:var(--text-muted);cursor:pointer;padding:4px;line-height:1}
+
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,242,248,0.94);backdrop-filter:blur(20px);border-top:1px solid var(--glass-border);display:flex;padding:6px 0 max(6px,env(safe-area-inset-bottom));box-shadow:0 -4px 24px rgba(236,72,153,0.1);overflow-x:auto;scrollbar-width:none}
+.bottom-nav::-webkit-scrollbar{display:none}
+.nav-item{flex:0 0 auto;min-width:58px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 8px;cursor:pointer;border:none;background:none;transition:all 0.2s;position:relative}
+.nav-icon{font-size:20px;transition:transform 0.2s}
+.nav-label{font-size:9px;font-weight:500;color:var(--text-muted);letter-spacing:0.2px;white-space:nowrap}
+.nav-item.active .nav-icon{transform:scale(1.15)}
+.nav-item.active .nav-label{color:var(--pink-500);font-weight:600}
+.nav-badge{position:absolute;top:3px;right:5px;background:var(--pink-500);color:white;border-radius:8px;padding:1px 5px;font-size:9px;font-weight:700;min-width:15px;text-align:center}
+
+/* FAB */
+.fab{position:fixed;bottom:90px;right:20px;z-index:99;width:56px;height:56px;background:linear-gradient(135deg,var(--pink-400),var(--pink-500));border:none;border-radius:50%;font-size:24px;color:white;box-shadow:0 6px 20px rgba(244,114,182,0.45);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.25s cubic-bezier(0.34,1.56,0.64,1)}
+.fab:hover{transform:scale(1.1) rotate(5deg)}
+.fab:active{transform:scale(0.96)}
+
+/* PAGES */
+.page{display:none;padding:20px;max-width:900px;margin:0 auto;animation:fadeSlideUp 0.3s ease}
+.page.active{display:block}
+@keyframes fadeSlideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* ============================================================
+   HOME — COUNTERS
+   ============================================================ */
+.counters-card{background:linear-gradient(135deg,rgba(255,255,255,0.85),rgba(252,231,243,0.7));backdrop-filter:blur(16px);border:1.5px solid var(--glass-border);border-radius:24px;padding:24px 20px 20px;margin-bottom:18px;box-shadow:var(--shadow);text-align:center}
+.counters-label{font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:14px}
+.rel-counter{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.rel-unit{background:rgba(255,255,255,0.8);border:1px solid var(--pink-200);border-radius:14px;padding:10px 14px;min-width:64px}
+.rel-num{font-family:'Playfair Display',serif;font-size:26px;color:var(--pink-600);line-height:1}
+.rel-lbl{font-size:10px;color:var(--text-muted);margin-top:2px;letter-spacing:0.5px}
+.countdown-row{display:flex;align-items:center;justify-content:center}
+.countdown-badge{background:linear-gradient(135deg,var(--pink-100),var(--rose-100));border:1px solid var(--pink-200);border-radius:20px;padding:8px 16px;font-size:13px;color:var(--text-secondary);font-weight:500}
+.countdown-time{font-family:'Playfair Display',serif;font-weight:700;color:var(--pink-600);font-size:17px}
+
+/* TABS */
+.tabs-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:16px;scrollbar-width:none}
+.tabs-row::-webkit-scrollbar{display:none}
+.tab-btn{flex-shrink:0;padding:8px 16px;background:rgba(255,255,255,0.7);border:1.5px solid var(--pink-200);border-radius:20px;font-size:13px;font-weight:500;color:var(--text-secondary);cursor:pointer;transition:all 0.2s;white-space:nowrap;font-family:'DM Sans',sans-serif}
+.tab-btn.active{background:linear-gradient(135deg,var(--pink-400),var(--pink-500));border-color:transparent;color:white;box-shadow:0 4px 12px rgba(244,114,182,0.35)}
+.add-msg-btn{width:100%;padding:13px;background:rgba(255,255,255,0.7);border:1.5px dashed var(--pink-300);border-radius:16px;color:var(--pink-600);font-size:14px;font-weight:500;cursor:pointer;margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'DM Sans',sans-serif;transition:all 0.2s}
+.add-msg-btn:hover{background:rgba(255,255,255,0.95);border-color:var(--pink-400)}
+
+/* MONTH GROUP */
+.month-group{margin-bottom:24px}
+.month-label{font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;padding-left:4px;display:flex;align-items:center;gap:8px}
+.month-label::after{content:'';flex:1;height:1px;background:var(--pink-200)}
+
+/* MESSAGE CARD */
+.msg-card{background:var(--glass);backdrop-filter:blur(12px);border:1.5px solid var(--glass-border);border-radius:18px;padding:16px;margin-bottom:10px;box-shadow:0 4px 16px rgba(236,72,153,0.08);transition:all 0.25s;animation:cardIn 0.3s ease}
+@keyframes cardIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.msg-card:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(236,72,153,0.14)}
+.msg-header{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px}
+.msg-cat{font-size:11px;font-weight:600;letter-spacing:0.5px;color:var(--text-muted)}
+.msg-time{font-size:11px;color:var(--text-muted);white-space:nowrap}
+.msg-text{font-size:14px;line-height:1.6;color:var(--text-primary);margin-bottom:12px;white-space:pre-wrap;word-break:break-word}
+.msg-status{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:10px;font-size:11px;font-weight:600;margin-bottom:10px}
+.status-pending{background:rgba(249,168,212,0.2);color:var(--pink-600)}
+.status-missed{background:rgba(244,63,94,0.12);color:#be123c}
+.status-done{background:rgba(34,197,94,0.12);color:#15803d}
+.msg-actions{display:flex;flex-wrap:wrap;gap:6px}
+.msg-btn{padding:6px 12px;border-radius:10px;font-size:12px;font-weight:500;border:1.5px solid;cursor:pointer;transition:all 0.15s;font-family:'DM Sans',sans-serif}
+.btn-copy{border-color:var(--pink-300);color:var(--pink-600);background:rgba(249,168,212,0.15)}
+.btn-copy:hover{background:rgba(249,168,212,0.3)}
+.btn-copy.copied{border-color:rgba(34,197,94,0.4);color:#15803d;background:rgba(34,197,94,0.1)}
+.btn-done{border-color:rgba(34,197,94,0.4);color:#15803d;background:rgba(34,197,94,0.1)}
+.btn-done:hover{background:rgba(34,197,94,0.2)}
+.btn-pending{border-color:var(--pink-300);color:var(--pink-600);background:rgba(249,168,212,0.1)}
+.btn-edit{border-color:rgba(249,168,212,0.5);color:var(--text-secondary);background:rgba(255,255,255,0.6)}
+.btn-edit:hover{background:rgba(255,255,255,0.9)}
+.btn-delete{border-color:rgba(244,63,94,0.3);color:#be123c;background:rgba(244,63,94,0.05)}
+.btn-delete:hover{background:rgba(244,63,94,0.12)}
+.empty-state{text-align:center;padding:48px 20px}
+.empty-icon{font-size:48px;margin-bottom:12px;opacity:0.6;display:block}
+.empty-text{font-size:15px;color:var(--text-muted)}
+
+/* ============================================================
+   MODAL SYSTEM
+   ============================================================ */
+.modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(74,21,48,0.45);backdrop-filter:blur(8px);display:flex;align-items:flex-end;justify-content:center;animation:fadeIn 0.2s ease;padding-bottom:env(safe-area-inset-bottom)}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal-sheet{background:linear-gradient(180deg,#fdf2f8,#fce7f3);border-radius:28px 28px 0 0;width:100%;max-width:640px;max-height:92vh;overflow-y:auto;padding:24px 20px 32px;animation:slideUp 0.35s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 -8px 48px rgba(236,72,153,0.2)}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal-handle{width:36px;height:4px;background:var(--pink-300);border-radius:2px;margin:0 auto 20px}
+.modal-title{font-family:'Playfair Display',serif;font-size:22px;color:var(--pink-600);margin-bottom:20px;font-style:italic}
+.form-group{margin-bottom:16px}
+.form-label{font-size:11px;font-weight:600;color:var(--text-secondary);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px;display:block}
+.form-input,.form-select,.form-textarea{width:100%;padding:12px 14px;background:rgba(255,255,255,0.85);border:1.5px solid var(--pink-200);border-radius:14px;font-size:14px;color:var(--text-primary);font-family:'DM Sans',sans-serif;outline:none;transition:all 0.2s}
+.form-textarea{resize:vertical;min-height:90px}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--pink-400);background:white;box-shadow:0 0 0 4px rgba(244,114,182,0.1)}
+.form-btn-row{display:flex;gap:10px;margin-top:4px}
+.btn-primary{flex:1;padding:13px;background:linear-gradient(135deg,var(--pink-400),var(--pink-500));border:none;border-radius:14px;color:white;font-size:15px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 14px rgba(244,114,182,0.35);transition:all 0.2s}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(244,114,182,0.45)}
+.btn-secondary{padding:13px 20px;background:rgba(255,255,255,0.8);border:1.5px solid var(--pink-200);border-radius:14px;color:var(--text-secondary);font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s}
+.btn-secondary:hover{background:white}
+
+/* ============================================================
+   CHAT PAGE
+   ============================================================ */
+.chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 200px);min-height:400px}
+.chat-header-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--glass);backdrop-filter:blur(12px);border:1.5px solid var(--glass-border);border-radius:16px;margin-bottom:10px}
+.chat-dot{width:9px;height:9px;border-radius:50%;background:#22c55e;box-shadow:0 0 6px rgba(34,197,94,0.55);flex-shrink:0}
+.chat-dot.offline{background:#d1d5db;box-shadow:none}
+.chat-status-txt{font-size:12px;color:var(--text-muted);flex:1}
+.chat-user-toggle{font-size:11px;padding:5px 10px;background:rgba(255,255,255,0.8);border:1px solid var(--pink-200);border-radius:10px;cursor:pointer;color:var(--text-secondary);font-family:'DM Sans',sans-serif;font-weight:500}
+.chat-messages{flex:1;overflow-y:auto;padding:4px 0;display:flex;flex-direction:column;gap:6px}
+.chat-msg{display:flex;flex-direction:column;max-width:78%}
+.chat-msg.sent{align-self:flex-end;align-items:flex-end}
+.chat-msg.recv{align-self:flex-start;align-items:flex-start}
+.chat-bubble{padding:10px 14px;border-radius:18px;font-size:14px;line-height:1.5;word-break:break-word}
+.chat-msg.sent .chat-bubble{background:linear-gradient(135deg,var(--pink-400),var(--pink-500));color:white;border-bottom-right-radius:4px}
+.chat-msg.recv .chat-bubble{background:var(--glass);backdrop-filter:blur(12px);border:1.5px solid var(--glass-border);color:var(--text-primary);border-bottom-left-radius:4px}
+.chat-meta{font-size:10px;color:var(--text-muted);margin-top:3px;padding:0 4px}
+.chat-sender{font-size:11px;font-weight:600;color:var(--pink-600);margin-bottom:3px;padding:0 4px}
+.chat-date-div{text-align:center;font-size:11px;color:var(--text-muted);margin:8px 0;display:flex;align-items:center;gap:8px}
+.chat-date-div::before,.chat-date-div::after{content:'';flex:1;height:1px;background:var(--pink-200)}
+.chat-typing-row{font-size:12px;color:var(--text-muted);font-style:italic;padding:4px 8px;min-height:22px}
+.chat-input-row{display:flex;gap:10px;margin-top:10px;align-items:flex-end}
+.chat-input{flex:1;padding:12px 14px;background:rgba(255,255,255,0.85);border:1.5px solid var(--pink-200);border-radius:20px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text-primary);outline:none;resize:none;max-height:120px;overflow-y:auto;line-height:1.4;transition:border-color 0.2s}
+.chat-input:focus{border-color:var(--pink-400);background:white;box-shadow:0 0 0 3px rgba(244,114,182,0.1)}
+.chat-send-btn{width:44px;height:44px;background:linear-gradient(135deg,var(--pink-400),var(--pink-500));border:none;border-radius:50%;color:white;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(244,114,182,0.35);transition:all 0.2s}
+.chat-send-btn:hover{transform:scale(1.05)}
+.chat-send-btn:active{transform:scale(0.95)}
+.chat-notice{background:rgba(249,168,212,0.12);border:1.5px solid var(--pink-200);border-radius:14px;padding:14px;margin-bottom:10px;text-align:center;font-size:13px;color:var(--text-secondary);line-height:1.6}
+
+/* ============================================================
+   AI PAGE
+   ============================================================ */
+.ai-card{background:var(--glass);backdrop-filter:blur(16px);border:1.5px solid var(--glass-border);border-radius:22px;padding:20px;margin-bottom:16px;box-shadow:var(--shadow)}
+.ai-section-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--pink-600);margin-bottom:14px;font-style:italic}
+.tone-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.tone-btn{padding:7px 14px;border-radius:20px;font-size:13px;border:1.5px solid var(--pink-200);background:rgba(255,255,255,0.7);color:var(--text-secondary);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s}
+.tone-btn.active{background:linear-gradient(135deg,var(--pink-400),var(--pink-500));border-color:transparent;color:white}
+.ai-result{background:linear-gradient(135deg,rgba(255,255,255,0.9),rgba(252,231,243,0.6));border:1.5px solid var(--pink-200);border-radius:16px;padding:16px;margin-top:14px;min-height:80px}
+.ai-result-text{font-size:14px;line-height:1.7;color:var(--text-primary);white-space:pre-wrap}
+.ai-spinner{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--text-muted);font-size:14px;padding:16px}
+.spinner-dots{display:flex;gap:4px}
+.spinner-dots span{width:6px;height:6px;background:var(--pink-400);border-radius:50%;animation:bounce 1.2s infinite}
+.spinner-dots span:nth-child(2){animation-delay:0.2s}
+.spinner-dots span:nth-child(3){animation-delay:0.4s}
+@keyframes bounce{0%,80%,100%{transform:scale(0.8);opacity:0.5}40%{transform:scale(1.2);opacity:1}}
+.api-notice{background:rgba(249,168,212,0.12);border:1.5px solid var(--pink-200);border-radius:14px;padding:14px;margin-bottom:16px;font-size:13px;color:var(--text-secondary);line-height:1.5}
+.api-key-row{display:flex;gap:8px;margin-top:10px}
+.api-key-row input{flex:1}
+.api-key-row button{padding:10px 14px;background:linear-gradient(135deg,var(--pink-400),var(--pink-500));border:none;border-radius:12px;color:white;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+.reschedule-suggestion{background:rgba(255,255,255,0.8);border:1.5px solid var(--pink-200);border-radius:14px;padding:14px;margin-bottom:10px}
+.btn-apply{padding:6px 14px;border-radius:10px;font-size:12px;font-weight:600;background:linear-gradient(135deg,var(--pink-400),var(--pink-500));border:none;color:white;cursor:pointer;font-family:'DM Sans',sans-serif}
+
+/* ============================================================
+   DAILY QUESTION
+   ============================================================ */
+.dq-card{background:linear-gradient(135deg,rgba(255,255,255,0.85),rgba(252,231,243,0.65));backdrop-filter:blur(16px);border:1.5px solid var(--glass-border);border-radius:24px;padding:24px;margin-bottom:16px;box-shadow:var(--shadow)}
+.dq-date-lbl{font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.dq-question{font-family:'Playfair Display',serif;font-size:20px;color:var(--pink-600);font-style:italic;line-height:1.45;margin-bottom:20px}
+.dq-answers{display:flex;flex-direction:column;gap:12px;margin-bottom:16px}
+.dq-ans-block{background:rgba(255,255,255,0.72);border:1px solid var(--pink-200);border-radius:14px;padding:14px}
+.dq-ans-who{font-size:11px;font-weight:600;color:var(--pink-600);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px}
+.dq-ans-text{font-size:14px;color:var(--text-primary);line-height:1.5;font-style:italic}
+.dq-ans-empty{font-size:13px;color:var(--text-muted);font-style:italic}
+.dq-history-item{background:var(--glass);backdrop-filter:blur(12px);border:1.5px solid var(--glass-border);border-radius:16px;padding:14px;margin-bottom:10px}
+.dq-history-date{font-size:11px;color:var(--text-muted);margin-bottom:4px;font-weight:600}
+.dq-history-q{font-size:13px;color:var(--text-secondary);margin-bottom:8px;font-style:italic}
+.dq-history-ans{font-size:12px;color:var(--text-primary);padding:6px 10px;background:rgba(255,255,255,0.7);border-radius:8px;line-height:1.4;margin-bottom:4px}
+
+/* ============================================================
+   OPEN WHEN
+   ============================================================ */
+.ow-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.ow-card{background:var(--glass);backdrop-filter:blur(12px);border:1.5px solid var(--glass-border);border-radius:20px;padding:20px;cursor:pointer;transition:all 0.25s;box-shadow:var(--shadow);text-align:center}
+.ow-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);border-color:var(--pink-300)}
+.ow-emoji{font-size:36px;margin-bottom:10px;display:block}
+.ow-title{font-size:13px;font-weight:600;color:var(--text-primary);line-height:1.4}
+.ow-letter-view{background:linear-gradient(135deg,rgba(255,255,255,0.92),rgba(252,231,243,0.65));border:1.5px solid var(--glass-border);border-radius:20px;padding:24px;display:none;animation:fadeSlideUp 0.3s ease;margin-top:4px}
+.ow-letter-view.visible{display:block}
+.ow-letter-heading{font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:14px}
+.ow-letter-body{font-family:'Playfair Display',serif;font-size:15px;font-style:italic;line-height:1.85;color:var(--text-primary);white-space:pre-wrap}
+.ow-letter-actions{display:flex;gap:8px;margin-top:16px}
+.ow-btn{padding:8px 16px;background:rgba(255,255,255,0.8);border:1.5px solid var(--pink-200);border-radius:10px;font-size:13px;color:var(--text-secondary);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s}
+.ow-btn:hover{background:white}
+
+/* ============================================================
+   MILESTONES
+   ============================================================ */
+.milestone-list{display:flex;flex-direction:column;gap:10px}
+.milestone-card{background:var(--glass);backdrop-filter:blur(12px);border:1.5px solid var(--glass-border);border-radius:18px;padding:15px 18px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow)}
+.milestone-card.achieved{border-color:rgba(34,197,94,0.3);background:linear-gradient(135deg,rgba(255,255,255,0.88),rgba(240,253,244,0.7))}
+.milestone-icon{font-size:26px;flex-shrink:0}
+.milestone-info{flex:1}
+.milestone-name{font-size:14px;font-weight:600;color:var(--text-primary)}
+.milestone-date-str{font-size:12px;color:var(--text-muted);margin-top:2px}
+.milestone-badge{padding:4px 10px;border-radius:12px;font-size:11px;font-weight:600;white-space:nowrap}
+.badge-done{background:rgba(34,197,94,0.12);color:#15803d}
+.badge-soon{background:rgba(249,168,212,0.2);color:var(--pink-600)}
+
+/* ============================================================
+   CARE PAGE
+   ============================================================ */
+.care-hero{background:linear-gradient(135deg,rgba(255,255,255,0.85),rgba(252,231,243,0.65));backdrop-filter:blur(16px);border:1.5px solid var(--glass-border);border-radius:24px;padding:24px;margin-bottom:16px;text-align:center;box-shadow:var(--shadow)}
+.care-hero-emoji{font-size:48px;margin-bottom:10px;display:block}
+.care-hero-title{font-family:'Playfair Display',serif;font-size:22px;color:var(--pink-600);font-style:italic;margin-bottom:6px}
+.care-hero-sub{font-size:13px;color:var(--text-muted);line-height:1.5}
+.care-suggestion-card{background:var(--glass);backdrop-filter:blur(12px);border:1.5px solid var(--glass-border);border-radius:20px;padding:20px;margin-bottom:14px;box-shadow:var(--shadow)}
+.care-lbl{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.care-text{font-family:'Playfair Display',serif;font-size:17px;color:var(--pink-600);font-style:italic;line-height:1.5;margin-bottom:14px}
+.care-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.care-act{background:rgba(255,255,255,0.72);border:1.5px solid var(--pink-200);border-radius:14px;padding:12px;text-align:center;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif}
+.care-act:hover{background:rgba(255,255,255,0.96);border-color:var(--pink-400)}
+.care-act-icon{font-size:22px;margin-bottom:4px;display:block}
+.care-act-txt{font-size:12px;color:var(--text-secondary);font-weight:500}
+.special-dates-list{display:flex;flex-direction:column;gap:10px}
+.sd-card{background:var(--glass);backdrop-filter:blur(12px);border:1.5px solid var(--glass-border);border-radius:14px;padding:13px 16px;display:flex;align-items:center;gap:12px}
+.sd-icon{font-size:24px;flex-shrink:0}
+.sd-name{font-size:13px;font-weight:600;color:var(--text-primary)}
+.sd-countdown{font-size:12px;color:var(--pink-600);margin-top:2px;font-weight:500}
+
+/* ============================================================
+   STORY PAGE
+   ============================================================ */
+.story-hero{background:linear-gradient(135deg,rgba(255,255,255,0.8),rgba(252,231,243,0.6));backdrop-filter:blur(16px);border:1.5px solid var(--glass-border);border-radius:24px;padding:28px 20px;margin-bottom:16px;text-align:center;box-shadow:var(--shadow)}
+.story-emoji-row{font-size:36px;letter-spacing:8px;margin-bottom:12px}
+.story-names{font-family:'Playfair Display',serif;font-size:26px;color:var(--pink-600);font-style:italic}
+.story-since{font-size:13px;color:var(--text-muted);margin-top:4px}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.story-stat{background:var(--glass);backdrop-filter:blur(12px);border:1.5px solid var(--glass-border);border-radius:18px;padding:16px;text-align:center;box-shadow:0 4px 12px rgba(236,72,153,0.07)}
+.story-stat-num{font-family:'Playfair Display',serif;font-size:28px;color:var(--pink-600)}
+.story-stat-label{font-size:11px;color:var(--text-muted);margin-top:2px}
+.nicknames-card{background:linear-gradient(135deg,rgba(255,255,255,0.8),rgba(252,231,243,0.5));border:1.5px solid var(--pink-200);border-radius:20px;padding:20px;margin-bottom:12px}
+.nicknames-title{font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.nickname-chips{display:flex;flex-wrap:wrap;gap:8px}
+.nickname-chip{padding:7px 14px;background:linear-gradient(135deg,var(--pink-100),var(--rose-100));border:1px solid var(--pink-200);border-radius:20px;font-size:13px;color:var(--pink-600);font-style:italic}
+.countdown-cards{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.countdown-card{background:var(--glass);backdrop-filter:blur(12px);border:1.5px solid var(--glass-border);border-radius:18px;padding:16px;display:flex;align-items:center;gap:14px;box-shadow:0 4px 12px rgba(236,72,153,0.07)}
+.countdown-card-icon{font-size:30px}
+.countdown-card-info{flex:1}
+.countdown-card-title{font-size:13px;font-weight:600;color:var(--text-secondary)}
+.countdown-card-val{font-family:'Playfair Display',serif;font-size:18px;color:var(--pink-600);margin-top:2px}
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat-chip{background:var(--glass);border:1.5px solid var(--glass-border);border-radius:16px;padding:14px;text-align:center;box-shadow:0 2px 8px rgba(236,72,153,0.07)}
+.stat-chip-num{font-family:'Playfair Display',serif;font-size:24px;color:var(--pink-600)}
+.stat-chip-label{font-size:11px;color:var(--text-muted);margin-top:2px}
+.made-with-love{text-align:center;padding:24px 20px 8px;border-top:1px solid var(--glass-border);margin-top:16px}
+.made-with-love p:first-child{font-family:'Playfair Display',serif;font-size:15px;color:var(--pink-600);font-style:italic;margin-bottom:4px}
+.made-with-love p:last-child{font-size:12px;color:var(--text-muted)}
+
+/* ============================================================
+   BACKUP PAGE
+   ============================================================ */
+.backup-card{background:var(--glass);backdrop-filter:blur(16px);border:1.5px solid var(--glass-border);border-radius:22px;padding:20px;margin-bottom:16px;box-shadow:var(--shadow)}
+.backup-section-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--pink-600);font-style:italic;margin-bottom:14px}
+.backup-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--pink-100)}
+.backup-item:last-of-type{border-bottom:none}
+.backup-item-name{font-size:14px;font-weight:500;color:var(--text-primary)}
+.backup-item-sub{font-size:12px;color:var(--text-muted);margin-top:2px}
+.backup-btn{padding:8px 14px;background:linear-gradient(135deg,var(--pink-400),var(--pink-500));border:none;border-radius:10px;color:white;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;white-space:nowrap}
+.backup-btn:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(244,114,182,0.35)}
+.backup-all-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--pink-400),var(--pink-500));border:none;border-radius:14px;color:white;font-size:15px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 14px rgba(244,114,182,0.35);transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px}
+.backup-all-btn:hover{transform:translateY(-1px)}
+
+/* ============================================================
+   POPUP + TOAST
+   ============================================================ */
+.popup-overlay{position:fixed;inset:0;z-index:600;background:rgba(74,21,48,0.45);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn 0.25s ease}
+.popup-card{background:linear-gradient(135deg,#fff5f9,#fce7f3);border:2px solid var(--pink-300);border-radius:28px;padding:32px 24px;text-align:center;width:100%;max-width:360px;box-shadow:var(--shadow-lg);animation:popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);max-height:90vh;overflow-y:auto}
+@keyframes popIn{from{transform:scale(0.7);opacity:0}to{transform:scale(1);opacity:1}}
+.popup-emoji{font-size:64px;margin-bottom:14px;display:block}
+.popup-title{font-family:'Playfair Display',serif;font-size:24px;color:var(--pink-600);margin-bottom:8px}
+.popup-text{font-size:14px;color:var(--text-secondary);line-height:1.6;margin-bottom:20px}
+.popup-btn{padding:12px 28px;background:linear-gradient(135deg,var(--pink-400),var(--pink-500));border:none;border-radius:14px;color:white;font-size:15px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 14px rgba(244,114,182,0.35)}
+.missed-popup-list{max-height:45vh;overflow-y:auto;margin:12px 0;text-align:left}
+.missed-popup-item{background:rgba(255,255,255,0.7);border:1px solid var(--pink-200);border-radius:12px;padding:12px;margin-bottom:8px}
+.missed-popup-text{font-size:13px;color:var(--text-primary);margin-bottom:8px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+.missed-popup-actions{display:flex;flex-wrap:wrap;gap:6px}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:rgba(74,21,48,0.92);color:white;padding:10px 20px;border-radius:20px;font-size:13px;z-index:700;pointer-events:none;backdrop-filter:blur(10px);white-space:nowrap;font-weight:500;animation:toastIn 0.3s ease;transition:opacity 0.3s}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(min-width:640px){
+  .ow-grid{grid-template-columns:repeat(3,1fr)}
+  .care-actions{grid-template-columns:repeat(4,1fr)}
+  .story-grid{grid-template-columns:repeat(4,1fr)}
+  .stats-grid{grid-template-columns:repeat(4,1fr)}
+}
+@media(min-width:1024px){
+  .sidebar{display:flex}
+  .app-main{margin-left:var(--sidebar-w)}
+  .bottom-nav{display:none}
+  .fab{bottom:30px}
+  .page{padding:28px 32px}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-card">
+    <span class="login-blossom">🌸</span>
+    <div class="login-title">Our Story</div>
+    <div class="login-sub">A private space for Zain & Fatima 💖</div>
+    <div class="input-group"><label>Username</label><input type="text" id="loginUser" placeholder="Enter username" autocomplete="off"/></div>
+    <div class="input-group"><label>Password</label><input type="password" id="loginPass" placeholder="Enter password"/></div>
+    <button class="login-btn" onclick="doLogin()">Enter Our Story 🌸</button>
+    <div class="login-error" id="loginError">❌ Wrong credentials. This story is private.</div>
+  </div>
+</div>
+
+<!-- ACCESS DENIED -->
+<div id="deniedScreen">
+  <span class="denied-icon">🚫</span>
+  <div class="denied-title">Access Denied</div>
+  <div class="denied-sub">You shall not pass 🔒</div>
+  <button class="denied-back" onclick="backToLogin()">← Try Again</button>
+</div>
+
+<!-- MAIN APP -->
+<div id="app">
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-title">Our Story 🌸</div>
+      <div class="sidebar-sub">Zain & Fatima · Since 8 July 2022</div>
+    </div>
+    <div class="sidebar-nav" id="sidebarNav"></div>
+    <div class="sidebar-footer">
+      <div class="sidebar-notif-row" onclick="requestNotifPermission()">🔔 <span id="sidebarNotifTxt">Enable Notifications</span></div>
+    </div>
+  </nav>
+
+  <div class="app-main" id="appMain">
+    <header class="app-header">
+      <div class="header-inner">
+        <div>
+          <div class="header-title">Our Story 🌸</div>
+          <div class="header-sub">Zain & Fatima · Since 8 July 2022</div>
+        </div>
+        <div class="header-right">
+          <button class="header-btn" id="headerInstallBtn" title="Install App" onclick="triggerInstall()" style="display:none">📲</button>
+          <button class="header-btn" onclick="requestNotifPermission()">🔔</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="install-banner" id="installBanner">
+      <div style="font-size:28px">📲</div>
+      <div class="install-banner-text"><strong>Install Our Story App</strong>Access from your home screen, offline too</div>
+      <button class="install-banner-btn" onclick="triggerInstall()">Install</button>
+      <button class="install-banner-close" onclick="document.getElementById('installBanner').style.display='none'">✕</button>
+    </div>
+
+    <!-- HOME PAGE -->
+    <div class="page active" id="pageHome">
+      <div class="counters-card">
+        <div class="counters-label">Together Since 8 July 2022</div>
+        <div class="rel-counter">
+          <div class="rel-unit"><div class="rel-num" id="cntYears">0</div><div class="rel-lbl">Years</div></div>
+          <div class="rel-unit"><div class="rel-num" id="cntMonths">0</div><div class="rel-lbl">Months</div></div>
+          <div class="rel-unit"><div class="rel-num" id="cntDays">0</div><div class="rel-lbl">Days</div></div>
+          <div class="rel-unit"><div class="rel-num" id="cntHours">0</div><div class="rel-lbl">Hours</div></div>
+        </div>
+        <div class="countdown-row">
+          <div class="countdown-badge">Next message in <span class="countdown-time" id="nextCountdown">—</span></div>
+        </div>
+      </div>
+      <div class="tabs-row" id="tabsRow"></div>
+      <button class="add-msg-btn" id="addMsgBtn" onclick="openAddModal()">＋ Add New Reminder</button>
+      <div id="msgList"></div>
+    </div>
+
+    <!-- CHAT PAGE -->
+    <div class="page" id="pageChat">
+      <div class="chat-notice" id="chatNotice">
+        🔥 <strong>Firebase not connected.</strong> Messages save locally until you add your Firebase config.<br/>
+        <small style="color:var(--text-muted)">Add your config in the Firebase section of the script to enable real-time chat.</small>
+      </div>
+      <div class="chat-wrap">
+        <div class="chat-header-bar">
+          <div class="chat-dot offline" id="chatDot"></div>
+          <div class="chat-status-txt" id="chatStatusTxt">Local mode — messages saved on this device</div>
+          <button class="chat-user-toggle" onclick="toggleChatUser()">👤 <span id="chatUserLbl">Zain</span></button>
+        </div>
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-typing-row" id="chatTypingRow"></div>
+        <div class="chat-input-row">
+          <textarea class="chat-input" id="chatInput" placeholder="Write a message... 💌" rows="1" onkeydown="chatKeyDown(event)" oninput="chatAutoResize(this)"></textarea>
+          <button class="chat-send-btn" onclick="sendChatMessage()">➤</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI HELPER PAGE -->
+    <div class="page" id="pageAI">
+      <div class="ai-card">
+        <div class="ai-section-title">✨ AI Message Helper</div>
+        <div id="apiKeySection" class="api-notice">
+          <strong>Anthropic API Key needed</strong><br/>Enter your key to use AI. Stored on this device only.
+          <div class="api-key-row">
+            <input type="password" class="form-input" id="apiKeyInput" placeholder="sk-ant-..."/>
+            <button onclick="saveApiKey()">Save</button>
+          </div>
+        </div>
+        <div class="form-group"><label class="form-label">Your Feeling / Situation</label><textarea class="form-textarea" id="aiPromptInput" placeholder="aaj bahut miss kar raha hoon usse... or write something for her birthday..."></textarea></div>
+        <div class="form-group"><label class="form-label">Tone</label><div class="tone-grid" id="toneGrid"></div></div>
+        <button class="btn-primary" onclick="generateAIMessage()" style="width:100%">✨ Generate Message</button>
+        <div class="ai-result" id="aiResult" style="display:none">
+          <div class="ai-result-text" id="aiResultText"></div>
+          <div class="form-btn-row" style="margin-top:12px" id="aiResultBtns"></div>
+        </div>
+      </div>
+      <div class="ai-card">
+        <div class="ai-section-title">🗓 AI Reschedule Mode</div>
+        <div class="form-group"><label class="form-label">Describe the situation</label><textarea class="form-textarea" id="reschedPrompt" placeholder="e.g. she is upset today, make this week extra special..."></textarea></div>
+        <button class="btn-primary" onclick="generateReschedule()" style="width:100%">🤖 Get AI Suggestions</button>
+        <div id="reschedResult" style="margin-top:14px;display:none"></div>
+      </div>
+    </div>
+
+    <!-- DAILY QUESTION PAGE -->
+    <div class="page" id="pageDQ">
+      <div class="dq-card" id="dqTodayCard">
+        <div class="dq-date-lbl" id="dqDateLbl">Today</div>
+        <div class="dq-question" id="dqQuestion">Loading...</div>
+        <div class="dq-answers" id="dqAnswers"></div>
+        <button class="btn-primary" onclick="openDQModal()" style="width:100%">Answer Today's Question 💬</button>
+      </div>
+      <div style="font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px">Previous Days</div>
+      <div id="dqHistory"></div>
+    </div>
+
+    <!-- OPEN WHEN PAGE -->
+    <div class="page" id="pageOW">
+      <div class="ow-grid" id="owGrid"></div>
+      <div class="ow-letter-view" id="owLetterView">
+        <div class="ow-letter-heading" id="owLetterHeading"></div>
+        <div class="ow-letter-body" id="owLetterBody"></div>
+        <div class="ow-letter-actions">
+          <button class="ow-btn" onclick="openOWEditModal()">✏️ Edit Letter</button>
+          <button class="ow-btn" onclick="closeOWLetter()">✕ Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MILESTONES PAGE -->
+    <div class="page" id="pageMilestones">
+      <div class="counters-card" style="margin-bottom:20px">
+        <div class="counters-label">Your Journey Together</div>
+        <div id="milestonesHero" style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-top:4px"></div>
+      </div>
+      <div style="font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px">Milestones</div>
+      <div class="milestone-list" id="milestoneList"></div>
+    </div>
+
+    <!-- CARE PAGE -->
+    <div class="page" id="pageCare">
+      <div class="care-hero">
+        <span class="care-hero-emoji">🌸</span>
+        <div class="care-hero-title">Fatima Care Mode</div>
+        <div class="care-hero-sub">Daily reminders to be there for her every day 💖</div>
+      </div>
+      <div class="care-suggestion-card">
+        <div class="care-lbl">Today's Suggestion 💝</div>
+        <div class="care-text" id="careSuggestionText">Loading...</div>
+        <div class="care-actions">
+          <div class="care-act" onclick="careAction('message')"><span class="care-act-icon">💌</span><span class="care-act-txt">Send Message</span></div>
+          <div class="care-act" onclick="careAction('reminder')"><span class="care-act-icon">⏰</span><span class="care-act-txt">Set Reminder</span></div>
+          <div class="care-act" onclick="careAction('ai')"><span class="care-act-icon">✨</span><span class="care-act-txt">AI Helper</span></div>
+          <div class="care-act" onclick="careAction('letters')"><span class="care-act-icon">💌</span><span class="care-act-txt">Open When</span></div>
+        </div>
+      </div>
+      <div class="nicknames-card" style="margin-bottom:0">
+        <div class="nicknames-title">Special Dates Countdown</div>
+        <div class="special-dates-list" id="specialDatesList"></div>
+      </div>
+    </div>
+
+    <!-- STORY PAGE -->
+    <div class="page" id="pageStory">
+      <div class="story-hero">
+        <div class="story-emoji-row">💛🌸💛</div>
+        <div class="story-names">Zain & Fatima</div>
+        <div class="story-since">Together since 8 July 2022 🌹</div>
+      </div>
+      <div class="story-grid" id="storyStatsGrid"></div>
+      <div class="nicknames-card">
+        <div class="nicknames-title">Fatima's Nicknames 💖</div>
+        <div class="nickname-chips">
+          <span class="nickname-chip">Sweetie</span><span class="nickname-chip">Bacha</span><span class="nickname-chip">Kakky</span><span class="nickname-chip">Wifey</span><span class="nickname-chip">Goldie</span>
+        </div>
+      </div>
+      <div class="countdown-cards" id="countdownCards"></div>
+      <div class="nicknames-card">
+        <div class="nicknames-title">Reminder Stats 📊</div>
+        <div class="stats-grid" id="reminderStats"></div>
+      </div>
+      <div class="made-with-love">
+        <p>Made with love by Zain Akram ❤️</p>
+        <p>Someone who cares about you every day.</p>
+      </div>
+    </div>
+
+    <!-- BACKUP PAGE -->
+    <div class="page" id="pageBackup">
+      <div class="backup-card">
+        <div class="backup-section-title">📦 Export Data</div>
+        <div class="backup-item"><div><div class="backup-item-name">💌 Reminders</div><div class="backup-item-sub" id="bkpMsgSub">—</div></div><button class="backup-btn" onclick="exportData('messages')">Export JSON</button></div>
+        <div class="backup-item"><div><div class="backup-item-name">🌸 Daily Questions</div><div class="backup-item-sub" id="bkpDQSub">—</div></div><button class="backup-btn" onclick="exportData('dailyquestions')">Export JSON</button></div>
+        <div class="backup-item"><div><div class="backup-item-name">💌 Open When Letters</div><div class="backup-item-sub" id="bkpOWSub">—</div></div><button class="backup-btn" onclick="exportData('openwhen')">Export JSON</button></div>
+        <div class="backup-item"><div><div class="backup-item-name">💬 Chat Messages</div><div class="backup-item-sub" id="bkpChatSub">—</div></div><button class="backup-btn" onclick="exportData('chat')">Export JSON</button></div>
+        <button class="backup-all-btn" onclick="exportData('all')">📦 Export Everything</button>
+      </div>
+      <div class="backup-card">
+        <div class="backup-section-title">📥 Import Backup</div>
+        <div class="form-group"><label class="form-label">Select JSON File</label><input type="file" class="form-input" accept=".json" onchange="importBackup(this)"/></div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:6px">⚠️ Importing merges data — existing records are kept.</div>
+      </div>
+    </div>
+  </div><!-- /app-main -->
+
+  <nav class="bottom-nav" id="bottomNav"></nav>
+  <button class="fab" id="fab" onclick="openAddModal()">＋</button>
+</div>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="msgModal" style="display:none" onclick="if(event.target===this)closeMsgModal()">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="msgModalTitle">New Reminder 💌</div>
+    <input type="hidden" id="editingMsgId"/>
+    <div class="form-group"><label class="form-label">Message Text</label><textarea class="form-textarea" id="msgText" placeholder="Write something beautiful..."></textarea></div>
+    <div class="form-group"><label class="form-label">Category</label>
+      <select class="form-select" id="msgCat">
+        <option value="for_fatima">💖 For Fatima</option>
+        <option value="for_zain">💌 For Zain</option>
+        <option value="shared">🌸 Shared</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="form-label">Scheduled Time (PKT)</label><input type="datetime-local" class="form-input" id="msgTime"/></div>
+    <div class="form-btn-row">
+      <button class="btn-secondary" onclick="closeMsgModal()">Cancel</button>
+      <button class="btn-primary" onclick="saveMsgModal()">Save Reminder 💖</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="dqModal" style="display:none" onclick="if(event.target===this)closeDQModal()">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Answer Today's Question 💬</div>
+    <div class="form-group"><label class="form-label">You are</label>
+      <select class="form-select" id="dqWho"><option value="zain">💛 Zain</option><option value="fatima">🌸 Fatima</option></select>
+    </div>
+    <div class="form-group"><label class="form-label" id="dqModalQ">Question</label><textarea class="form-textarea" id="dqAnswerInput" placeholder="Your answer..."></textarea></div>
+    <div class="form-btn-row">
+      <button class="btn-secondary" onclick="closeDQModal()">Cancel</button>
+      <button class="btn-primary" onclick="saveDQAnswer()">Save Answer 💖</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="owModal" style="display:none" onclick="if(event.target===this)closeOWModal()">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="owModalTitle">Edit Letter ✏️</div>
+    <input type="hidden" id="editingOWId"/>
+    <div class="form-group"><label class="form-label">Letter Content</label><textarea class="form-textarea" id="owLetterInput" placeholder="Write from the heart..." style="min-height:160px"></textarea></div>
+    <div class="form-btn-row">
+      <button class="btn-secondary" onclick="closeOWModal()">Cancel</button>
+      <button class="btn-primary" onclick="saveOWLetter()">Save Letter 💖</button>
+    </div>
+  </div>
+</div>
+
+<div id="popupContainer"></div>
+
+<!-- FIREBASE — non-blocking dynamic import -->
+<script>
+// ============================================================
+// FIREBASE CONFIGURATION
+// Replace these placeholder values with your real Firebase project config.
+// Firebase Console → Project Settings → Your Apps → SDK setup & configuration
+// ============================================================
+window.FIREBASE_CONFIG = {
+  apiKey:            "YOUR_API_KEY",
+  authDomain:        "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId:         "YOUR_PROJECT_ID",
+  storageBucket:     "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId:             "YOUR_APP_ID"
+};
+// Firebase Console → Project Settings → Cloud Messaging → Web Push certificates
+window.FIREBASE_VAPID_KEY = "YOUR_VAPID_KEY";
+
+window.FIREBASE_READY = false;
+
+// Non-blocking: app works fully without Firebase
+async function initFirebase() {
+  try {
+    if (window.FIREBASE_CONFIG.apiKey === "YOUR_API_KEY") return;
+    const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js');
+    const { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, doc, setDoc, getDoc, getDocs, limit }
+      = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+    const { getMessaging, getToken, onMessage }
+      = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js');
+
+    const app = initializeApp(window.FIREBASE_CONFIG);
+    const db  = getFirestore(app);
+    let msg = null;
+    try { msg = getMessaging(app); } catch(e) {}
+
+    window.db           = db;
+    window.fsMessaging  = msg;
+    window.fsAdd        = addDoc;
+    window.fsCollection = collection;
+    window.fsQuery      = query;
+    window.fsOnSnapshot = onSnapshot;
+    window.fsOrderBy    = orderBy;
+    window.fsServerTs   = serverTimestamp;
+    window.fsDoc        = doc;
+    window.fsSetDoc     = setDoc;
+    window.fsGetDoc     = getDoc;
+    window.fsGetDocs    = getDocs;
+    window.fsLimit      = limit;
+    window.fsGetToken   = getToken;
+    window.fsOnMessage  = onMessage;
+    window.FIREBASE_READY = true;
+    window.dispatchEvent(new Event('firebaseReady'));
+    console.log('Firebase connected ✅');
+  } catch(e) {
+    console.warn('Firebase not available — running in local mode:', e.message);
+    window.FIREBASE_READY = false;
+  }
+}
+initFirebase(); // fire and forget — does NOT block app load
+</script>
+
+<!-- MAIN APP SCRIPT -->
+<script>
+/* ============================================================
+   CONSTANTS
+   ============================================================ */
+const CREDS            = { user:'meandher', pass:'togethersince2022' };
+const SINCE            = new Date(2022,6,8,0,0,0); // July 8 2022 local
+const ZAIN_BIRTH_YEAR  = 2006;
+const FATIMA_BIRTH_YEAR= 2008;
+const TONES = ['Romantic','Cute','Emotional','Soft','→ Roman Urdu','→ English'];
+const CAT_LABELS = { for_fatima:'💖 For Fatima', for_zain:'💌 For Zain', shared:'🌸 Shared' };
+const TABS = ['Today','Upcoming','This Month','All','Missed','Done'];
+const NAV_ITEMS = [
+  { id:'Home',       icon:'🏠', label:'Home'    },
+  { id:'Chat',       icon:'💬', label:'Chat',     badge:'chatBadge' },
+  { id:'AI',         icon:'✨', label:'AI Help'  },
+  { id:'DQ',         icon:'🌸', label:'Q&A'      },
+  { id:'OW',         icon:'💌', label:'Letters'  },
+  { id:'Milestones', icon:'❤️', label:'Journey'  },
+  { id:'Care',       icon:'🌺', label:'Care'     },
+  { id:'Story',      icon:'📖', label:'Story'    },
+  { id:'Backup',     icon:'📦', label:'Backup'   },
+];
+
+/* ============================================================
+   STATE
+   ============================================================ */
+let currentTab     = 'Today';
+let selectedTone   = 'Romantic';
+let currentOWId    = null;
+let notifFired     = new Set();
+let deferredInstall= null;
+let chatBadge      = 0;
+let localChat      = [];
+let chatUnsub      = null;
+
+/* ============================================================
+   STORAGE HELPERS
+   ============================================================ */
+const LS = {
+  get   : (k, d='[]')  => { try { return JSON.parse(localStorage.getItem(k) ?? d); } catch { return JSON.parse(d); } },
+  set   : (k, v)       => localStorage.setItem(k, JSON.stringify(v)),
+  str   : (k, d='')    => localStorage.getItem(k) ?? d,
+  setStr: (k, v)       => localStorage.setItem(k, v),
+};
+const getMessages    = ()    => LS.get('ourstory_msgs');
+const saveMessages   = msgs  => LS.set('ourstory_msgs', msgs);
+const getApiKey      = ()    => LS.str('ourstory_apikey');
+const getSpecialShown= ()    => LS.get('ourstory_special_shown','{}');
+const setSpecialKey  = k     => { const s=getSpecialShown(); s[k]=true; LS.set('ourstory_special_shown',s); };
+const getOWLetters   = ()    => LS.get('ourstory_ow','{}');
+const saveOWLetters  = d     => LS.set('ourstory_ow', d);
+const getDQData      = ()    => LS.get('ourstory_dq','{}');
+const saveDQData     = d     => LS.set('ourstory_dq', d);
+const getLocalChat   = ()    => LS.get('ourstory_chat');
+const saveLocalChat  = d     => LS.set('ourstory_chat', d);
+
+function saveApiKey() {
+  const k = document.getElementById('apiKeyInput').value.trim();
+  if (!k) return;
+  LS.setStr('ourstory_apikey', k);
+  document.getElementById('apiKeySection').style.display = 'none';
+  showToast('API key saved! ✨');
+}
+function checkApiKeyUI() {
+  if (getApiKey()) document.getElementById('apiKeySection').style.display = 'none';
+}
+
+/* ============================================================
+   LOGIN
+   ============================================================ */
+function doLogin() {
+  const u = document.getElementById('loginUser').value.trim();
+  const p = document.getElementById('loginPass').value.trim();
+  if (u === CREDS.user && p === CREDS.pass) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    onAppOpen();
+  } else {
+    showDenied();
+  }
+}
+document.getElementById('loginUser').addEventListener('keydown', e => e.key==='Enter' && document.getElementById('loginPass').focus());
+document.getElementById('loginPass').addEventListener('keydown', e => e.key==='Enter' && doLogin());
+
+function showDenied() {
+  document.getElementById('loginScreen').style.display = 'none';
+  const d = document.getElementById('deniedScreen');
+  d.style.display = 'flex';
+  setTimeout(() => {
+    d.style.display = 'none';
+    document.getElementById('loginScreen').style.display = 'flex';
+  }, 3500);
+}
+function backToLogin() {
+  document.getElementById('deniedScreen').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+}
+
+/* ============================================================
+   APP OPEN
+   ============================================================ */
+function onAppOpen() {
+  buildNav();
+  seedDefaultMessages();
+  seedAutoMessages();
+  checkApiKeyUI();
+  buildToneGrid();
+  buildTabs();
+  markMissedMessages();
+  checkSpecialDates();
+  renderMsgList();
+  renderStoryPage();
+  renderMilestones();
+  renderCare();
+  renderOWGrid();
+  renderDQPage();
+  updateBackupStats();
+  startTimers();
+  registerSW();
+  initPWA();
+  initChat();
+  requestNotifPermission();
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+function buildNav() {
+  const bn = document.getElementById('bottomNav');
+  const sn = document.getElementById('sidebarNav');
+  bn.innerHTML = NAV_ITEMS.map(n => `
+    <button class="nav-item${n.id==='Home'?' active':''}" id="nav${n.id}" onclick="switchPage('${n.id}')">
+      <span class="nav-icon">${n.icon}</span>
+      <span class="nav-label">${n.label}</span>
+      ${n.badge ? `<span class="nav-badge" id="${n.badge}" style="display:none">0</span>` : ''}
+    </button>`).join('');
+  sn.innerHTML = NAV_ITEMS.map(n => `
+    <button class="sidebar-item${n.id==='Home'?' active':''}" id="snav${n.id}" onclick="switchPage('${n.id}')">
+      <span class="sidebar-icon">${n.icon}</span><span>${n.label}</span>
+      ${n.badge ? `<span class="sidebar-badge" id="s${n.badge}" style="display:none">0</span>` : ''}
+    </button>`).join('');
+}
+
+function switchPage(name) {
+  NAV_ITEMS.forEach(n => {
+    document.getElementById('page'+n.id)?.classList.toggle('active', n.id===name);
+    document.getElementById('nav'+n.id)?.classList.toggle('active',  n.id===name);
+    document.getElementById('snav'+n.id)?.classList.toggle('active', n.id===name);
+  });
+  document.getElementById('fab').style.display      = name==='Home' ? 'flex' : 'none';
+  document.getElementById('addMsgBtn').style.display = name==='Home' ? 'flex' : 'none';
+  if (name==='Story')      updateStoryPage();
+  if (name==='AI')         checkApiKeyUI();
+  if (name==='Chat')       { clearChatBadge(); scrollChatBottom(); }
+  if (name==='Milestones') renderMilestones();
+  if (name==='Care')       renderCare();
+  if (name==='Backup')     updateBackupStats();
+  if (name==='OW')         renderOWGrid();
+  if (name==='DQ')         renderDQPage();
+}
+
+/* ============================================================
+   SEED — 15 default messages (today)
+   ============================================================ */
+const SEED_MSGS = [
+  {text:"Subah uthke pehla khayal tera hota hai, Sweetie 🌸 Good morning, meri jaan.",time:"06:30",cat:"for_fatima"},
+  {text:"Bacha, nashta kiya? Apna khayal rakhna, tum meri duniya ho 💛",time:"08:00",cat:"for_fatima"},
+  {text:"School mein yaad aa raha hoga mujhe? Kyunki main toh bas tumhari soch raha hoon 😄💕",time:"09:30",cat:"for_fatima"},
+  {text:"Kakky, ek second ke liye bhi akela feel mat karna — main hamesha saath hoon 🤍",time:"11:00",cat:"for_fatima"},
+  {text:"Lunch karo Wifey, please! Bhooka rehna allowed nahi hai tumhe 😤💖",time:"13:00",cat:"for_fatima"},
+  {text:"Goldie, aaj tum bahut zyada miss ho rahe ho. Zindagi kitni khoobsurat hai tumse 🌹",time:"14:30",cat:"for_fatima"},
+  {text:"Shukriya Sweetie — har roz tum mujhe ek naya reason deti ho muskurane ka ✨",time:"15:30",cat:"shared"},
+  {text:"Bacha! Thakna mat, thoda rest karo — aur haan mujhe yaad karo 😌💗",time:"17:00",cat:"for_fatima"},
+  {text:"Shaam ho gayi, Wifey. Aaj ka din kaisa tha? Batao na mujhe sab kuch 🌙",time:"18:30",cat:"for_fatima"},
+  {text:"Khana khaya Kakky? Agar nahi toh main naraaz hoon bilkul seriously 😒💞",time:"20:00",cat:"for_fatima"},
+  {text:"Raat ke is waqt bhi sirf tumhare baare mein soch raha hoon, Goldie 🌟",time:"21:00",cat:"for_fatima"},
+  {text:"Ye sab teri wajah se hai — har khushi, har smile, har beat 💓 I love you, Sweetie.",time:"21:45",cat:"shared"},
+  {text:"8 July 2022 se shuru hui yeh kahani, aur main chahta hoon ke yeh kabhi khatam na ho 🌸",time:"22:00",cat:"shared"},
+  {text:"Bacha, so jao ab. Khwaabon mein milte hain. Main hoon na, hamesha 💤🤍",time:"22:45",cat:"for_fatima"},
+  {text:"Raat ke andhere mein bhi Wifey, teri roshan yaad mujhe neend se pehle muskaraati hai 🌙💖 Good night.",time:"23:00",cat:"for_fatima"},
+];
+
+function seedDefaultMessages() {
+  if (LS.str('ourstory_seeded')) return;
+  const n = getNow();
+  const ds = `${n.getFullYear()}-${pad(n.getMonth()+1)}-${pad(n.getDate())}`;
+  const msgs = SEED_MSGS.map((m,i) => {
+    const s = `${ds}T${m.time}`;
+    return { id:'seed_'+i, text:m.text, cat:m.cat, scheduledTime:s, month:ds.substring(0,7), status:'pending', createdAt:s, originalTime:s };
+  });
+  saveMessages(msgs);
+  LS.setStr('ourstory_seeded','1');
+}
+
+/* ============================================================
+   SEED — auto-generated messages through end of month
+   ============================================================ */
+const AUTO_POOL = [
+  // Good Morning
+  { cat:'for_fatima', text:"Good morning Sweetie! Uthlo, aaj ka din tumhara hai ☀️💖" },
+  { cat:'for_fatima', text:"Wakey wakey Bacha! Duniya tumhara intezaar kar rahi hai 🌸" },
+  { cat:'for_fatima', text:"Subah subah tumhari yaad aayi, Goldie. Good morning 🌼" },
+  { cat:'for_fatima', text:"Uth jao Wifey! Breakfast karo pehle please 😊" },
+  { cat:'for_fatima', text:"Good morning Kakky! Aaj khoob muskurana 💛" },
+  // Caring
+  { cat:'for_fatima', text:"Paani piya? Khaana khaya? Apna khayal rakhna Sweetie 💕" },
+  { cat:'for_fatima', text:"Bacha rest karo thodi, please. Tum thakti ho bahut 🤍" },
+  { cat:'for_fatima', text:"Goldie, agar kuch bura ho toh batao — main hoon 💗" },
+  { cat:'for_fatima', text:"Wifey, medicine li? Don't forget 😤💖" },
+  { cat:'for_fatima', text:"Kakky, aaj ka din kaisa gaya? Sab theek hai na? 🌸" },
+  // Missing You
+  { cat:'for_fatima', text:"Bahut miss kar raha hoon tumhe aaj, Sweetie 💔" },
+  { cat:'for_fatima', text:"Bacha, ye doori bohot mushkil hai par tum yaad rehte ho 💛" },
+  { cat:'for_fatima', text:"Goldie, kash abhi saath hote... 🌸" },
+  { cat:'for_fatima', text:"Wifey tumhari awaaz sunni hai aaj 💌" },
+  { cat:'for_fatima', text:"Kakky, sirf ek message karo please, dil dhoondh raha hai 🥺" },
+  // Supportive
+  { cat:'for_fatima', text:"Sweetie, tum strong ho. Ye mushkil waqt guzar jayega 💪💖" },
+  { cat:'for_fatima', text:"Bacha, jo bhi ho raha hai — main tumhare saath hoon 🤍" },
+  { cat:'for_fatima', text:"Goldie, rona ho toh ro, main sunn raha hoon 💛" },
+  { cat:'for_fatima', text:"Wifey, tumne bohot sahi kiya. Proud hoon tum par 🌸" },
+  { cat:'for_fatima', text:"Kakky, kal better hoga. Main promise karta hoon 🌟" },
+  // Sweet Random
+  { cat:'shared', text:"Tum ho toh zindagi rangeen hai 🌈 Bas ye batana tha." },
+  { cat:'shared', text:"Kya jaanu kya sochta hoon tumhare baare mein — sab kuch 💭💛" },
+  { cat:'shared', text:"Duniya mein sab se zyada tum pasand ho mujhe 🌸" },
+  { cat:'shared', text:"Dil mein ek jagah sirf tumhari hai, aur woh khali nahi hogi 💞" },
+  { cat:'shared', text:"Random thought: tum bahut pyaare ho. That's all. 🌷" },
+  // Good Night
+  { cat:'for_fatima', text:"So jao Sweetie, good night. Main hoon na 🌙💤" },
+  { cat:'for_fatima', text:"Raat ke sitaaron mein se ek tum ho, Bacha. Good night 🌟" },
+  { cat:'for_fatima', text:"Khwaabon mein milte hain, Goldie 💫 Good night." },
+  { cat:'for_fatima', text:"Wifey, neend aa rahi hai? So jao, kal milenge 🌙" },
+  { cat:'for_fatima', text:"Good night Kakky. Kal phir subah hogi 💗" },
+];
+
+function seedAutoMessages() {
+  if (LS.str('ourstory_auto_seeded')) return;
+  const now      = getNow();
+  const endOfMo  = new Date(now.getFullYear(), now.getMonth()+1, 0);
+  const existing = getMessages();
+  const usedDates= new Set(existing.map(m => m.scheduledTime?.substring(0,10)));
+  const newMsgs  = [];
+  let poolIdx    = 0;
+
+  for (let d = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1); d <= endOfMo; d.setDate(d.getDate()+1)) {
+    const ds = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+    if (usedDates.has(ds)) continue;
+    // 3 slots: morning / afternoon / night
+    [['07:00',0],['14:00',Math.floor(poolIdx/2)%AUTO_POOL.length],['22:00',AUTO_POOL.length-1-(poolIdx%5)]].forEach(([t,pi]) => {
+      const item = AUTO_POOL[pi % AUTO_POOL.length];
+      const sched = `${ds}T${t}`;
+      newMsgs.push({ id:'auto_'+Date.now()+'_'+Math.random().toString(36).substr(2,6), text:item.text, cat:item.cat, scheduledTime:sched, month:ds.substring(0,7), status:'pending', createdAt:sched, originalTime:sched });
+      poolIdx++;
+    });
+  }
+  if (newMsgs.length) saveMessages([...existing, ...newMsgs]);
+  LS.setStr('ourstory_auto_seeded','1');
+}
+
+/* ============================================================
+   TIME HELPERS  (PKT = local, no UTC conversion)
+   ============================================================ */
+const getNow = () => new Date();
+function parseLocal(str) {
+  if (!str) return null;
+  const [datePart, timePart='00:00'] = str.split('T');
+  const [y,mo,d] = datePart.split('-').map(Number);
+  const [h,mi]   = timePart.split(':').map(Number);
+  return new Date(y, mo-1, d, h, mi, 0);
+}
+function nowStr()  { const n=getNow(); return `${n.getFullYear()}-${pad(n.getMonth()+1)}-${pad(n.getDate())}T${pad(n.getHours())}:${pad(n.getMinutes())}`; }
+function todayStr(){ const n=getNow(); return `${n.getFullYear()}-${pad(n.getMonth()+1)}-${pad(n.getDate())}`; }
+function curMoStr(){ const n=getNow(); return `${n.getFullYear()}-${pad(n.getMonth()+1)}`; }
+const pad = n => String(n).padStart(2,'0');
+
+function fmtTime(str) {
+  const d = parseLocal(str); if (!d) return str||'';
+  let h=d.getHours(), m=d.getMinutes();
+  const ap=h>=12?'PM':'AM'; h=h%12||12;
+  return `${h}:${pad(m)} ${ap}`;
+}
+function fmtDate(str) {
+  const d = parseLocal(str); if (!d) return str||'';
+  return d.toLocaleDateString('en-PK',{day:'numeric',month:'short',year:'numeric'});
+}
+function fmtMonthLabel(ms) {
+  const [y,m] = ms.split('-');
+  return new Date(Number(y),Number(m)-1,1).toLocaleDateString('en-PK',{month:'long',year:'numeric'});
+}
+function nextDate(now, month, day) {
+  let d = new Date(now.getFullYear(), month, day);
+  if (d <= now) d = new Date(now.getFullYear()+1, month, day);
+  return d;
+}
+
+/* ============================================================
+   MARK MISSED ON OPEN
+   ============================================================ */
+function markMissedMessages() {
+  const now = getNow();
+  let msgs = getMessages(), newlyMissed = [];
+  msgs = msgs.map(m => {
+    if (m.status === 'pending') {
+      const t = parseLocal(m.scheduledTime);
+      if (t && t < now) { newlyMissed.push(m); return {...m, status:'missed'}; }
+    }
+    return m;
+  });
+  saveMessages(msgs);
+  if (newlyMissed.length) showMissedPopup(newlyMissed);
+}
+
+function showMissedPopup(msgs) {
+  const el = document.createElement('div');
+  el.className = 'popup-overlay';
+  el.innerHTML = `
+    <div class="popup-card" style="max-height:88vh;overflow-y:auto">
+      <span class="popup-emoji">💌</span>
+      <div class="popup-title">Missed ${msgs.length} Reminder${msgs.length>1?'s':''}</div>
+      <div class="popup-text">Here they are 🌸</div>
+      <div class="missed-popup-list">
+        ${msgs.map(m => `
+          <div class="missed-popup-item" id="mi_${m.id}">
+            <div class="missed-popup-text">${escHtml(m.text.substring(0,100))}${m.text.length>100?'…':''}</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:8px">${fmtDate(m.scheduledTime)} ${fmtTime(m.scheduledTime)}</div>
+            <div class="missed-popup-actions">
+              <button class="msg-btn btn-copy" onclick="copyMsgText('${m.id}')">📋 Copy</button>
+              <button class="msg-btn btn-done" onclick="markDoneFromPopup('${m.id}')">✅ Done</button>
+              <button class="msg-btn btn-pending" onclick="keepPendingFromPopup('${m.id}')">🔄 Pending</button>
+            </div>
+          </div>`).join('')}
+      </div>
+      <button class="popup-btn" onclick="this.closest('.popup-overlay').remove();renderMsgList()">Close 💖</button>
+    </div>`;
+  document.getElementById('popupContainer').appendChild(el);
+}
+window.markDoneFromPopup    = id => { updateMsgStatus(id,'done');    const el=document.getElementById('mi_'+id); if(el) el.style.opacity='0.4'; };
+window.keepPendingFromPopup = id => { updateMsgStatus(id,'pending'); const el=document.getElementById('mi_'+id); if(el) el.remove(); };
+
+/* ============================================================
+   SPECIAL DATE POPUPS
+   ============================================================ */
+function checkSpecialDates() {
+  const now=getNow(), m=now.getMonth()+1, d=now.getDate(), yr=now.getFullYear();
+  const shown = getSpecialShown();
+  if (m===7 && d===8 && !shown['anniv_'+yr]) {
+    const y=yr-2022;
+    setTimeout(()=>showSpecialPopup('🌹',`${y} Year${y>1?'s':''} Together! 💍`,`Zain & Fatima, aaj ${y} saal ho gaye tumhare pyaar ko 🌸 I love you forever, Wifey! 💖`,'anniv_'+yr),1000);
+  }
+  if (m===11 && d===5 && !shown['zainbday_'+yr])
+    setTimeout(()=>showSpecialPopup('🎂','Happy Birthday Zain! 🎉',`Aaj tum ${yr-ZAIN_BIRTH_YEAR} saal ke ho gaye! Fatima ke saath khoobsurat rahe ye saal 🌟`,'zainbday_'+yr),1000);
+  if (m===11 && d===8 && !shown['fatimabday_'+yr])
+    setTimeout(()=>showSpecialPopup('🎂','Happy Birthday Sweetie! 💖',`Aaj meri Fatima ka birthday hai! ${yr-FATIMA_BIRTH_YEAR} saal ki ho gayi tum — har saal se zyada pyaari ❤️`,'fatimabday_'+yr),1000);
+  if (m===11 && d===7 && now.getHours()===23 && now.getMinutes()>=50 && !shown['fatimabday_eve_'+yr])
+    setTimeout(()=>showSpecialPopup('🌙','Birthday Eve! ✨','Sweetie ka birthday sirf kuch ghanton mein hai! Midnight message bhejne ka waqt aa raha hai... 💌','fatimabday_eve_'+yr),1000);
+}
+function showSpecialPopup(emoji, title, text, key) {
+  if (key) setSpecialKey(key);
+  const el = document.createElement('div');
+  el.className = 'popup-overlay';
+  el.innerHTML = `<div class="popup-card"><span class="popup-emoji">${emoji}</span><div class="popup-title">${title}</div><div class="popup-text">${text}</div><button class="popup-btn" onclick="this.closest('.popup-overlay').remove()">Aww 💖</button></div>`;
+  document.getElementById('popupContainer').appendChild(el);
+}
+
+/* ============================================================
+   TABS & FILTER
+   ============================================================ */
+function buildTabs() {
+  document.getElementById('tabsRow').innerHTML = TABS.map(t =>
+    `<button class="tab-btn${t===currentTab?' active':''}" onclick="setTab('${t}')">${t}</button>`
+  ).join('');
+}
+function setTab(t) { currentTab=t; buildTabs(); renderMsgList(); }
+
+function filterMessages(tab) {
+  const msgs=getMessages(), ts=todayStr(), now=getNow(), cur=curMoStr();
+  switch(tab) {
+    case 'Today':      return msgs.filter(m => m.scheduledTime?.startsWith(ts));
+    case 'Upcoming':   return msgs.filter(m => m.status==='pending' && parseLocal(m.scheduledTime) >= now);
+    case 'This Month': return msgs.filter(m => m.month === cur);
+    case 'All':        return msgs;
+    case 'Missed':     return msgs.filter(m => m.status==='missed');
+    case 'Done':       return msgs.filter(m => m.status==='done');
+    default:           return msgs;
+  }
+}
+
+/* ============================================================
+   RENDER MESSAGES
+   ============================================================ */
+function renderMsgList() {
+  const c = document.getElementById('msgList');
+  const msgs = filterMessages(currentTab);
+  if (!msgs.length) {
+    c.innerHTML = `<div class="empty-state"><span class="empty-icon">🌸</span><div class="empty-text">No messages here yet — add something beautiful 💌</div></div>`;
+    return;
+  }
+  const groups = {};
+  msgs.forEach(m => {
+    const k = m.month || m.scheduledTime?.substring(0,7) || '?';
+    if (!groups[k]) groups[k] = [];
+    groups[k].push(m);
+  });
+  c.innerHTML = Object.keys(groups).sort().map(mk =>
+    `<div class="month-group">
+      <div class="month-label">${fmtMonthLabel(mk)}</div>
+      ${groups[mk].sort((a,b) => (a.scheduledTime||'').localeCompare(b.scheduledTime||'')).map(renderMsgCard).join('')}
+    </div>`
+  ).join('');
+}
+
+function renderMsgCard(m) {
+  const sc = m.status==='done' ? 'status-done' : m.status==='missed' ? 'status-missed' : 'status-pending';
+  const sl = m.status==='done' ? '✅ Done' : m.status==='missed' ? '⚠️ Missed' : '🕐 Pending';
+  let acts = `<button class="msg-btn btn-copy" id="cb_${m.id}" onclick="copyMsgText('${m.id}')">📋 Copy</button>`;
+  if (m.status !== 'done')    acts += `<button class="msg-btn btn-done" onclick="markMsgDone('${m.id}')">✅ Done</button>`;
+  if (m.status !== 'pending') acts += `<button class="msg-btn btn-pending" onclick="markMsgPending('${m.id}')">🔄 Pending</button>`;
+  acts += `<button class="msg-btn btn-edit" onclick="openEditModal('${m.id}')">✏️ Edit</button>`;
+  acts += `<button class="msg-btn btn-delete" onclick="deleteMsg('${m.id}')">🗑 Delete</button>`;
+  return `<div class="msg-card">
+    <div class="msg-header">
+      <div class="msg-cat">${CAT_LABELS[m.cat]||m.cat}</div>
+      <div class="msg-time">📅 ${fmtDate(m.scheduledTime)} ${fmtTime(m.scheduledTime)}</div>
+    </div>
+    <div class="msg-text">${escHtml(m.text)}</div>
+    <span class="msg-status ${sc}">${sl}</span>
+    <div class="msg-actions">${acts}</div>
+  </div>`;
+}
+
+/* ============================================================
+   COPY — modern API + execCommand fallback
+   ============================================================ */
+window.copyMsgText = async (id) => {
+  const m = getMessages().find(x => x.id === id);
+  if (!m) return;
+  const btn = document.getElementById('cb_'+id);
+
+  const onSuccess = () => {
+    showToast('✅ Copied!');
+    if (btn) {
+      btn.textContent = '✅ Copied';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = '📋 Copy'; btn.classList.remove('copied'); }, 2000);
+    }
+  };
+  const onFail = () => showToast('Copy failed — long-press the text to copy');
+
+  if (navigator.clipboard && window.isSecureContext) {
+    try { await navigator.clipboard.writeText(m.text); onSuccess(); return; } catch(e) {}
+  }
+  // Fallback for HTTP or older browsers
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = m.text;
+    ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none';
+    document.body.appendChild(ta);
+    ta.focus(); ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    ok ? onSuccess() : onFail();
+  } catch(e) { onFail(); }
+};
+
+window.markMsgDone    = id => { updateMsgStatus(id,'done');    renderMsgList(); };
+window.markMsgPending = id => { updateMsgStatus(id,'pending'); renderMsgList(); };
+window.deleteMsg      = id => {
+  if (!confirm('Delete this reminder?')) return;
+  saveMessages(getMessages().filter(m => m.id !== id));
+  renderMsgList();
+};
+function updateMsgStatus(id, s) {
+  const msgs = getMessages();
+  const i = msgs.findIndex(m => m.id === id);
+  if (i < 0) return;
+  msgs[i].status = s;
+  saveMessages(msgs);
+}
+
+/* ============================================================
+   ADD / EDIT MODAL
+   ============================================================ */
+function openAddModal() {
+  document.getElementById('editingMsgId').value = '';
+  document.getElementById('msgModalTitle').textContent = 'New Reminder 💌';
+  document.getElementById('msgText').value = '';
+  document.getElementById('msgCat').value  = 'for_fatima';
+  document.getElementById('msgTime').value = nowStr();
+  document.getElementById('msgModal').style.display = 'flex';
+}
+window.openEditModal = id => {
+  const m = getMessages().find(x => x.id === id);
+  if (!m) return;
+  document.getElementById('editingMsgId').value     = id;
+  document.getElementById('msgModalTitle').textContent = 'Edit Reminder ✏️';
+  document.getElementById('msgText').value          = m.text;
+  document.getElementById('msgCat').value           = m.cat;
+  document.getElementById('msgTime').value          = m.scheduledTime;
+  document.getElementById('msgModal').style.display = 'flex';
+};
+function closeMsgModal() { document.getElementById('msgModal').style.display = 'none'; }
+
+function saveMsgModal() {
+  const text  = document.getElementById('msgText').value.trim();
+  const cat   = document.getElementById('msgCat').value;
+  const sched = document.getElementById('msgTime').value;
+  if (!text)  { showToast('Please write a message 💌'); return; }
+  if (!sched) { showToast('Please set a time 🕐');       return; }
+
+  const editId = document.getElementById('editingMsgId').value;
+  const msgs   = getMessages();
+  const now    = getNow();
+  const t      = parseLocal(sched);
+  const status = (t && t < now) ? 'missed' : 'pending';
+
+  if (editId) {
+    const i = msgs.findIndex(m => m.id === editId);
+    if (i >= 0) msgs[i] = { ...msgs[i], text, cat, scheduledTime:sched, month:sched.substring(0,7), status };
+  } else {
+    msgs.push({ id:'msg_'+Date.now(), text, cat, scheduledTime:sched, month:sched.substring(0,7), status, createdAt:nowStr(), originalTime:sched });
+  }
+  saveMessages(msgs);
+  closeMsgModal();
+  renderMsgList();
+  showToast('Saved! 💖');
+  // Sync to Firestore if connected (shared between both users)
+  if (window.FIREBASE_READY) {
+    const lastMsg = msgs[msgs.length - 1];
+    const target  = editId ? msgs.find(m => m.id === editId) : lastMsg;
+    if (target) {
+      window.fsSetDoc(window.fsDoc(window.db, 'reminders', target.id), target).catch(e => console.warn('Sync failed:', e.message));
+    }
+  }
+}
+
+/* ============================================================
+   TIMERS — relationship counter + next message countdown
+   ============================================================ */
+function startTimers() {
+  updateRelCounter();
+  updateNextCountdown();
+  setInterval(() => { updateRelCounter(); updateNextCountdown(); }, 1000);
+  setInterval(checkNotifications, 30000);
+  checkNotifications();
+}
+
+function updateRelCounter() {
+  const diff   = getNow() - SINCE;
+  const years  = Math.floor(diff / (1000*60*60*24*365.25));
+  const afterY = diff - years*365.25*24*60*60*1000;
+  const months = Math.floor(afterY / (1000*60*60*24*30.44));
+  const afterM = afterY - months*30.44*24*60*60*1000;
+  const days   = Math.floor(afterM / (1000*60*60*24));
+  const hours  = Math.floor((afterM - days*24*60*60*1000) / (1000*60*60));
+  document.getElementById('cntYears').textContent  = years;
+  document.getElementById('cntMonths').textContent = months;
+  document.getElementById('cntDays').textContent   = days;
+  document.getElementById('cntHours').textContent  = hours;
+}
+
+function updateNextCountdown() {
+  const now  = getNow();
+  const msgs = getMessages();
+  const next = msgs
+    .filter(m => m.status==='pending' && parseLocal(m.scheduledTime) > now)
+    .sort((a,b) => parseLocal(a.scheduledTime) - parseLocal(b.scheduledTime))[0];
+  const el = document.getElementById('nextCountdown');
+  if (!el) return;
+  if (!next) { el.textContent = 'No upcoming'; return; }
+  const diff = parseLocal(next.scheduledTime) - now;
+  const h = Math.floor(diff/3600000), mn = Math.floor((diff%3600000)/60000), s = Math.floor((diff%60000)/1000);
+  el.textContent = `${pad(h)}:${pad(mn)}:${pad(s)}`;
+}
+
+/* ============================================================
+   STORY PAGE
+   ============================================================ */
+function renderStoryPage() { updateStoryPage(); }
+
+function updateStoryPage() {
+  const now       = getNow();
+  const diff      = now - SINCE;
+  const totalDays = Math.floor(diff / (1000*60*60*24));
+  const years     = Math.floor(totalDays / 365.25);
+
+  const grid = document.getElementById('storyStatsGrid');
+  if (grid) grid.innerHTML = [
+    [years,                           'Years'],
+    [Math.floor(totalDays/30.44),     'Months Total'],
+    [totalDays,                       'Days Total'],
+    [Math.floor(diff/(1000*60*60)),   'Hours Total'],
+  ].map(([n,l]) => `<div class="story-stat"><div class="story-stat-num">${Number(n).toLocaleString()}</div><div class="story-stat-label">${l} Together</div></div>`).join('');
+
+  const cards = document.getElementById('countdownCards');
+  if (cards) {
+    const nA = nextDate(now,6,8);
+    const nF = nextDate(now,10,8);
+    const nZ = nextDate(now,10,5);
+    const aD = Math.ceil((nA-now)/864e5);
+    const fD = Math.ceil((nF-now)/864e5);
+    const zD = Math.ceil((nZ-now)/864e5);
+    cards.innerHTML = `
+      <div class="countdown-card"><div class="countdown-card-icon">💍</div><div class="countdown-card-info"><div class="countdown-card-title">Anniversary (${nA.getFullYear()-2022} yrs)</div><div class="countdown-card-val">${aD} days · 8 July</div></div></div>
+      <div class="countdown-card"><div class="countdown-card-icon">🎂</div><div class="countdown-card-info"><div class="countdown-card-title">Fatima's Birthday (turns ${nF.getFullYear()-FATIMA_BIRTH_YEAR})</div><div class="countdown-card-val">${fD} days · 8 Nov</div></div></div>
+      <div class="countdown-card"><div class="countdown-card-icon">🎉</div><div class="countdown-card-info"><div class="countdown-card-title">Zain's Birthday (turns ${nZ.getFullYear()-ZAIN_BIRTH_YEAR})</div><div class="countdown-card-val">${zD} days · 5 Nov</div></div></div>`;
+  }
+
+  const msgs = getMessages();
+  const sg   = document.getElementById('reminderStats');
+  if (sg) {
+    const total   = msgs.length;
+    const done    = msgs.filter(m=>m.status==='done').length;
+    const missed  = msgs.filter(m=>m.status==='missed').length;
+    const pending = msgs.filter(m=>m.status==='pending').length;
+    sg.innerHTML = [[total,'Total'],[pending,'Pending'],[done,'Done'],[missed,'Missed']]
+      .map(([n,l]) => `<div class="stat-chip"><div class="stat-chip-num">${n}</div><div class="stat-chip-label">${l}</div></div>`).join('');
+  }
+}
+
+/* ============================================================
+   MILESTONES
+   ============================================================ */
+const MILESTONE_DAYS = [100,200,300,365,500,730,1000,1095,1500,1826,2000,2555,3000,3650];
+const MILESTONE_LABELS = {
+  365:'1 Year Together 💍', 730:'2 Years Together 💍', 1095:'3 Years Together 💍',
+  1826:'5 Years Together 💍', 3650:'10 Years Together 💍',
+};
+
+function renderMilestones() {
+  const now       = getNow();
+  const totalDays = Math.floor((now - SINCE) / 864e5);
+  const hero      = document.getElementById('milestonesHero');
+  if (hero) hero.innerHTML = `<strong style="font-family:'Playfair Display',serif;font-size:22px;color:var(--pink-600)">${totalDays.toLocaleString()}</strong> days together 💛<br/>That's <strong>${Math.floor(totalDays/365)}</strong> years and <strong>${Math.floor((totalDays%365)/30)}</strong> months`;
+
+  const list = document.getElementById('milestoneList');
+  if (!list) return;
+  list.innerHTML = MILESTONE_DAYS.map(d => {
+    const mDate    = new Date(SINCE.getTime() + d*864e5);
+    const achieved = totalDays >= d;
+    const daysLeft = d - totalDays;
+    const label    = MILESTONE_LABELS[d] || `${d} Days Together`;
+    return `<div class="milestone-card${achieved?' achieved':''}">
+      <div class="milestone-icon">${achieved ? '✅' : '🌸'}</div>
+      <div class="milestone-info">
+        <div class="milestone-name">❤️ ${label}</div>
+        <div class="milestone-date-str">${mDate.toLocaleDateString('en-PK',{day:'numeric',month:'long',year:'numeric'})}</div>
+      </div>
+      <span class="milestone-badge ${achieved?'badge-done':'badge-soon'}">${achieved ? 'Achieved!' : daysLeft+' days'}</span>
+    </div>`;
+  }).join('');
+}
+
+/* ============================================================
+   OPEN WHEN LETTERS
+   ============================================================ */
+const OW_CARDS = [
+  { id:'sad',        emoji:'😢', title:"Open when you're sad"          },
+  { id:'miss',       emoji:'❤️', title:"Open when you miss me"         },
+  { id:'stress',     emoji:'🤗', title:"Open when you're stressed"     },
+  { id:'sleep',      emoji:'🌙', title:"Open when you can't sleep"     },
+  { id:'motivation', emoji:'✨', title:"Open when you need motivation" },
+  { id:'angry',      emoji:'😤', title:"Open when you're angry"        },
+  { id:'happy',      emoji:'🌸', title:"Open when you're happy"        },
+  { id:'lonely',     emoji:'🫂', title:"Open when you feel lonely"     },
+];
+const OW_DEFAULTS = {
+  sad:        "Sweetie, rona theek hai. Tum bahut brave ho. Ye waqt guzar jayega, main promise karta hoon. Aur jab tum roti ho, mere dil ko bhi dard hota hai — but yahi baat toh dikhata hai ke tum kitna feel karte ho. Rona, phir uth jao. Main hoon na hamesha tumhare liye. 💛",
+  miss:       "Bacha, jab tum mujhe miss karo, yaad rakho ke main bhi har second tumhe miss karta hoon. Ye doori kuch nahi, rishta woh hai jo dil mein hota hai — aur woh toh hamesha close hai. Ek din milenge, aur phir door nahi jaayenge. 🌸",
+  stress:     "Wifey, saans lo. Deep breath. Sab theek ho jaayega. Tum itna zyada sochti ho — but every problem has a solution. Main chahta hoon ke tum ek cup chai lo, phone rakh do 10 minutes, aur khud se baat karo. Tum strong ho, mujhse zyada strong. 💪❤️",
+  sleep:      "Goldie, neend nahi aa rahi? Aankhein band karo. Mere baare mein socho — hum ek din saath sone wale hain. Abhi bas ye soch ke so jao ke kal main honga, messages honge, aur zindagi khoobsurat hogi. Good night, meri jaan. 🌙",
+  motivation: "Kakky, sun — tum ye kar sakti ho. Jo bhi challenge saamne hai, tum ne pehle bhi mushkilein paar ki hain. Mujhe tumpar poora yaqeen hai. Get up, dust yourself off, aur show them who Fatima is. Main hoon tumhari support mein, hamesha. ✨💛",
+  angry:      "Sweetie, naraaz hona bilkul theek hai. Feelings valid hain. But yaad raho: koi bhi situation itni important nahi ke tumhara dil dukhe. Agar mujhse naraaz ho, baat karo — main sunn'ga. Main tumse pyaar karta hoon, even when you're angry. 💗",
+  happy:      "Bacha, ye dekh ke mere dil mein kuch khoobsoora hua 🌸 Tumhari khushi meri khushi hai. Aaj ka din enjoy karo poori tarah — dance karo, muskurao, ek baar aur muskurao. Tumhari smile mere liye puri duniya hai. 💛",
+  lonely:     "Goldie, kabhi kabhi sab ke beech bhi akela lagta hai — ye bilkul normal hai. But tum akeli nahi ho. Main hoon, hamesha. Chahe raat ka koi bhi waqt ho, main hoon. Apna phone uthao aur message karo — main jawab dunga. 🫂❤️",
+};
+
+function renderOWGrid() {
+  document.getElementById('owGrid').innerHTML = OW_CARDS.map(c =>
+    `<div class="ow-card" onclick="openOWLetter('${c.id}')">
+      <span class="ow-emoji">${c.emoji}</span>
+      <div class="ow-title">${c.title}</div>
+    </div>`
+  ).join('');
+  document.getElementById('owLetterView').classList.remove('visible');
+}
+
+window.openOWLetter = id => {
+  currentOWId = id;
+  const letters = getOWLetters();
+  const card    = OW_CARDS.find(c => c.id === id);
+  const text    = letters[id] || OW_DEFAULTS[id] || 'This letter is empty. Tap Edit to write something ✍️';
+  document.getElementById('owLetterHeading').textContent = card?.title || '';
+  document.getElementById('owLetterBody').textContent    = text;
+  const lv = document.getElementById('owLetterView');
+  lv.classList.add('visible');
+  lv.scrollIntoView({ behavior:'smooth', block:'start' });
+};
+window.closeOWLetter = () => document.getElementById('owLetterView').classList.remove('visible');
+
+function openOWEditModal() {
+  if (!currentOWId) return;
+  const card = OW_CARDS.find(c => c.id === currentOWId);
+  document.getElementById('editingOWId').value      = currentOWId;
+  document.getElementById('owModalTitle').textContent = `Edit: ${card?.title||'Letter'}`;
+  document.getElementById('owLetterInput').value    = getOWLetters()[currentOWId] || OW_DEFAULTS[currentOWId] || '';
+  document.getElementById('owModal').style.display  = 'flex';
+}
+function closeOWModal() { document.getElementById('owModal').style.display = 'none'; }
+function saveOWLetter() {
+  const id   = document.getElementById('editingOWId').value;
+  const text = document.getElementById('owLetterInput').value.trim();
+  if (!id) return;
+  const letters = getOWLetters();
+  letters[id] = text;
+  saveOWLetters(letters);
+  document.getElementById('owLetterBody').textContent = text;
+  closeOWModal();
+  showToast('Letter saved! 💌');
+}
+
+/* ============================================================
+   DAILY QUESTION
+   ============================================================ */
+const DQ_LIST = [
+  "What made you smile today?","What was the best part of your day?","What song is stuck in your head?",
+  "If you could be anywhere right now, where would you be?","What's one thing you're grateful for today?",
+  "What's your favourite memory of us?","If today was perfect, what would it look like?",
+  "What made you laugh recently?","What's something you want to tell me but haven't yet?",
+  "What's been on your mind lately?","What's one thing you wish I knew about you?",
+  "What are you looking forward to most?","How are you really feeling today?",
+  "If we could do one thing together tomorrow, what would it be?","What's a dream you have for our future?",
+  "What's something small that brought you joy today?","What does home feel like to you?",
+  "What's your favourite thing about yourself?","What's something new you want to try together?",
+  "What would your perfect lazy Sunday look like?","Tell me something you learned today.",
+  "What's a book, show, or song you want to share with me?","What's your biggest hope for this month?",
+  "What does love mean to you?","What's something that made you feel calm today?",
+  "If you wrote a letter to your past self, what would it say?","What's a habit you're proud of?",
+  "What surprised you recently?","What makes our relationship special to you?",
+  "How do you want to feel at the end of this year?",
+];
+
+function dqKey(d) { return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; }
+function getTodayDQ() {
+  const now  = getNow();
+  const key  = dqKey(now);
+  const data = getDQData();
+  if (!data[key]) {
+    const idx = Math.floor((now - SINCE) / 864e5) % DQ_LIST.length;
+    data[key] = { question: DQ_LIST[idx], answers: {} };
+    saveDQData(data);
+  }
+  return data[key];
+}
+
+function renderDQPage() {
+  const now      = getNow();
+  const todayDQ  = getTodayDQ();
+  const key      = dqKey(now);
+  document.getElementById('dqDateLbl').textContent   = now.toLocaleDateString('en-PK',{weekday:'long',month:'long',day:'numeric'});
+  document.getElementById('dqQuestion').textContent  = todayDQ.question;
+  document.getElementById('dqModalQ').textContent    = todayDQ.question;
+  document.getElementById('dqAnswers').innerHTML = ['zain','fatima'].map(who =>
+    `<div class="dq-ans-block">
+      <div class="dq-ans-who">${who==='zain'?'💛 Zain':'🌸 Fatima'}</div>
+      ${todayDQ.answers[who]
+        ? `<div class="dq-ans-text">"${escHtml(todayDQ.answers[who])}"</div>`
+        : `<div class="dq-ans-empty">No answer yet...</div>`}
+    </div>`).join('');
+
+  const data    = getDQData();
+  const history = Object.entries(data)
+    .filter(([k]) => k !== key)
+    .sort((a,b) => b[0].localeCompare(a[0]))
+    .slice(0, 14);
+  document.getElementById('dqHistory').innerHTML = history.length
+    ? history.map(([k,v]) =>
+        `<div class="dq-history-item">
+          <div class="dq-history-date">${new Date(k+'T00:00').toLocaleDateString('en-PK',{weekday:'short',month:'short',day:'numeric'})}</div>
+          <div class="dq-history-q">${escHtml(v.question)}</div>
+          ${Object.entries(v.answers||{}).map(([who,ans]) =>
+            `<div class="dq-history-ans"><strong>${who==='zain'?'💛 Zain':'🌸 Fatima'}:</strong> ${escHtml(ans)}</div>`
+          ).join('') || '<div class="dq-history-ans" style="color:var(--text-muted)">No answers recorded</div>'}
+        </div>`).join('')
+    : `<div class="empty-state"><span class="empty-icon">📝</span><div class="empty-text">Answer today's question to start history!</div></div>`;
+}
+
+function openDQModal() {
+  document.getElementById('dqAnswerInput').value = '';
+  document.getElementById('dqModal').style.display = 'flex';
+}
+function closeDQModal() { document.getElementById('dqModal').style.display = 'none'; }
+function saveDQAnswer() {
+  const who    = document.getElementById('dqWho').value;
+  const answer = document.getElementById('dqAnswerInput').value.trim();
+  if (!answer) { showToast('Write your answer first 💬'); return; }
+  const data = getDQData();
+  const key  = dqKey(getNow());
+  if (!data[key]) data[key] = { question: getTodayDQ().question, answers:{} };
+  data[key].answers[who] = answer;
+  saveDQData(data);
+  closeDQModal();
+  renderDQPage();
+  showToast('Answer saved! 🌸');
+}
+
+/* ============================================================
+   CARE MODE
+   ============================================================ */
+const CARE_MSGS = [
+  "Send Fatima a good morning voice note today 🌸",
+  "Plan a surprise virtual date this week 💻❤️",
+  "Tell Fatima one specific thing you love about her today 💛",
+  "Ask about her day — really listen 💬",
+  "Send her a playlist that reminds you of her 🎵",
+  "Leave a sweet note inside your next message 📝",
+  "Share something funny to make her smile 😄",
+  "Remind her to take a break and rest 🤍",
+  "Ask about something she mentioned last time 🌸",
+  "Send a photo of something that made you think of her 📸",
+  "Write a small poem — even two lines count 🌹",
+  "Plan something for your next anniversary together 💍",
+  "Check in midday — just to say you're thinking of her 💛",
+  "Tell her one thing that made you proud of her recently 🌟",
+  "Send her a good night message before she sleeps 🌙",
+];
+
+function renderCare() {
+  const now = getNow();
+  const idx = Math.floor((now - SINCE) / 864e5) % CARE_MSGS.length;
+  const el  = document.getElementById('careSuggestionText');
+  if (el) el.textContent = CARE_MSGS[idx];
+  renderSpecialDatesList();
+}
+window.careAction = type => {
+  if      (type === 'message')  { switchPage('AI');   showToast('Opening AI Helper 💌'); }
+  else if (type === 'reminder') { switchPage('Home');  openAddModal(); }
+  else if (type === 'ai')       { switchPage('AI');   showToast('AI Helper ready ✨'); }
+  else if (type === 'letters')  { switchPage('OW'); }
+};
+
+function renderSpecialDatesList() {
+  const now  = getNow();
+  const list = document.getElementById('specialDatesList');
+  if (!list) return;
+  const items = [
+    { name:"Fatima's Birthday 🎂", d: nextDate(now,10,8) },
+    { name:"Zain's Birthday 🎉",   d: nextDate(now,10,5) },
+    { name:"Anniversary 💍",       d: nextDate(now,6,8)  },
+    { name:"Valentine's Day 💝",   d: nextDate(now,1,14) },
+    { name:"New Year's Eve 🥂",    d: nextDate(now,11,31)},
+  ];
+  list.innerHTML = items.map(item => {
+    const days = Math.ceil((item.d - now) / 864e5);
+    const cnt  = days === 0 ? 'Today! 🎉' : days === 1 ? 'Tomorrow! 💛' : `${days} days away`;
+    return `<div class="sd-card">
+      <div class="sd-icon">${item.name.split(' ').slice(-1)[0]}</div>
+      <div><div class="sd-name">${item.name}</div><div class="sd-countdown">${cnt}</div></div>
+    </div>`;
+  }).join('');
+}
+
+/* ============================================================
+   TONE GRID
+   ============================================================ */
+function buildToneGrid() {
+  document.getElementById('toneGrid').innerHTML = TONES.map(t =>
+    `<button class="tone-btn${t===selectedTone?' active':''}" onclick="selectTone('${t}')">${t}</button>`
+  ).join('');
+}
+window.selectTone = t => { selectedTone = t; buildToneGrid(); };
+
+/* ============================================================
+   AI MESSAGE HELPER
+   ============================================================ */
+async function generateAIMessage() {
+  const apiKey = getApiKey();
+  if (!apiKey) { showToast('Please enter your API key first'); return; }
+  const prompt = document.getElementById('aiPromptInput').value.trim();
+  if (!prompt) { showToast('Please describe your feeling 💌'); return; }
+
+  const rd = document.getElementById('aiResult');
+  const rt = document.getElementById('aiResultText');
+  const rb = document.getElementById('aiResultBtns');
+  rd.style.display = 'block';
+  rt.innerHTML = `<div class="ai-spinner"><div class="spinner-dots"><span></span><span></span><span></span></div> Generating...</div>`;
+  rb.innerHTML = '';
+
+  const toneMap = {
+    'Romantic':     'deeply romantic, poetic, heartfelt',
+    'Cute':         'cute, sweet, adorable, playful',
+    'Emotional':    'deeply emotional, touching, meaningful',
+    'Soft':         'soft, gentle, warm, tender',
+    '→ Roman Urdu': 'entirely in Roman Urdu (Urdu written with English letters)',
+    '→ English':    'in clear, beautiful English',
+  };
+  const sys = `You are helping Zain write heartfelt messages for his girlfriend Fatima.
+Zain (born Nov 5, 2006) and Fatima (born Nov 8, 2008) have been together since July 8, 2022.
+Fatima's nicknames: Sweetie, Bacha, Kakky, Wifey, Goldie — use them naturally.
+Write from Zain's perspective. Tone: ${toneMap[selectedTone]||'romantic'}.
+Use Pakistani/Hinglish style naturally. Output ONLY the message text, nothing else.`;
+
+  try {
+    const res  = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json', 'x-api-key':apiKey, 'anthropic-version':'2023-06-01', 'anthropic-dangerous-direct-browser-access':'true' },
+      body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:1000, system:sys, messages:[{role:'user',content:prompt}] })
+    });
+    const data = await res.json();
+    if (data.error) { rt.innerHTML=`<span style="color:#be123c">Error: ${escHtml(data.error.message)}</span>`; return; }
+    const msg = data.content[0].text.trim();
+    rt.textContent = msg;
+    rb.innerHTML   = `<button class="btn-secondary" onclick="copyAIMsg(this)">📋 Copy</button><button class="btn-primary" onclick="addAIAsReminder(this)" style="flex:1">💌 Add as Reminder</button>`;
+    rb.dataset.msg = msg;
+  } catch(e) {
+    rt.innerHTML = `<span style="color:#be123c">Network error. Check your API key and connection.</span>`;
+  }
+}
+
+window.copyAIMsg = async btn => {
+  const msg = btn.closest('#aiResultBtns').dataset.msg || document.getElementById('aiResultText').textContent;
+  try { await navigator.clipboard.writeText(msg); }
+  catch { const ta=document.createElement('textarea'); ta.value=msg; ta.style.cssText='position:fixed;opacity:0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); }
+  showToast('Copied! 📋');
+};
+
+window.addAIAsReminder = btn => {
+  const msg = btn.closest('#aiResultBtns').dataset.msg || document.getElementById('aiResultText').textContent;
+  document.getElementById('msgText').value          = msg;
+  document.getElementById('msgCat').value           = 'for_fatima';
+  document.getElementById('msgTime').value          = nowStr();
+  document.getElementById('editingMsgId').value     = '';
+  document.getElementById('msgModalTitle').textContent = 'Add as Reminder 💌';
+  document.getElementById('msgModal').style.display = 'flex';
+  switchPage('Home');
+};
+
+/* ============================================================
+   AI RESCHEDULE
+   ============================================================ */
+async function generateReschedule() {
+  const apiKey = getApiKey();
+  if (!apiKey) { showToast('Please enter your API key first'); return; }
+  const prompt = document.getElementById('reschedPrompt').value.trim();
+  if (!prompt) { showToast('Describe the situation first'); return; }
+  const msgs = getMessages().filter(m => m.status==='pending');
+  if (!msgs.length) { showToast('No pending messages to reschedule'); return; }
+
+  const rd = document.getElementById('reschedResult');
+  rd.style.display = 'block';
+  rd.innerHTML = `<div class="ai-spinner"><div class="spinner-dots"><span></span><span></span><span></span></div> Thinking...</div>`;
+
+  const ml  = msgs.slice(0,10).map(m => `- ID:${m.id} | "${m.text.substring(0,60)}" | Scheduled: ${m.scheduledTime}`).join('\n');
+  const sys = `Help Zain reschedule romantic reminders for Fatima.\nPending reminders:\n${ml}\nBased on the situation, suggest better timings for 3-5 messages.\nRespond ONLY as a JSON array (no markdown): [{"id":"...","reason":"...","suggestedTime":"YYYY-MM-DDTHH:MM"},...]`;
+
+  try {
+    const res  = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json', 'x-api-key':apiKey, 'anthropic-version':'2023-06-01', 'anthropic-dangerous-direct-browser-access':'true' },
+      body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:1000, system:sys, messages:[{role:'user',content:prompt}] })
+    });
+    const data = await res.json();
+    if (data.error) { rd.innerHTML=`<span style="color:#be123c">Error: ${escHtml(data.error.message)}</span>`; return; }
+    const raw         = data.content[0].text.trim().replace(/```json|```/g,'').trim();
+    const suggestions = JSON.parse(raw);
+    const allMsgs     = getMessages();
+    rd.innerHTML = `<div style="font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:10px">AI Suggestions — tap Apply to accept</div>`
+      + suggestions.map(s => {
+          const orig = allMsgs.find(m => m.id === s.id);
+          if (!orig) return '';
+          return `<div class="reschedule-suggestion">
+            <div style="font-size:13px;color:var(--text-primary);margin-bottom:6px;line-height:1.5">${escHtml(orig.text.substring(0,80))}...</div>
+            <div style="font-size:12px;color:var(--text-muted);margin-bottom:6px">
+              Now: ${fmtDate(orig.scheduledTime)} ${fmtTime(orig.scheduledTime)}<br/>
+              Suggested: ${fmtDate(s.suggestedTime)} ${fmtTime(s.suggestedTime)}
+            </div>
+            <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px">💡 ${escHtml(s.reason)}</div>
+            <button class="btn-apply" onclick="applyReschedule('${s.id}','${s.suggestedTime}',this)">Apply</button>
+          </div>`;
+        }).join('');
+  } catch(e) {
+    rd.innerHTML = `<span style="color:#be123c">Error parsing response. Try again.</span>`;
+  }
+}
+
+window.applyReschedule = (id, newTime, btn) => {
+  const msgs = getMessages();
+  const i    = msgs.findIndex(m => m.id === id);
+  if (i < 0) return;
+  if (!msgs[i].originalTime) msgs[i].originalTime = msgs[i].scheduledTime;
+  msgs[i].scheduledTime = newTime;
+  msgs[i].month         = newTime.substring(0,7);
+  saveMessages(msgs);
+  btn.textContent = '✅ Applied';
+  btn.disabled    = true;
+  showToast('Rescheduled! ✨');
+};
+
+/* ============================================================
+   CHAT  (local storage + Firebase Firestore when configured)
+   ============================================================ */
+// Sync reminders FROM Firestore (shared between users)
+function initReminderSync() {
+  if (!window.FIREBASE_READY) return;
+  const q = window.fsQuery(
+    window.fsCollection(window.db, 'reminders'),
+    window.fsOrderBy('scheduledTime', 'asc')
+  );
+  window.fsOnSnapshot(q, snap => {
+    const remote = [];
+    snap.forEach(d => remote.push({ id:d.id, ...d.data() }));
+    if (!remote.length) return;
+    // Merge remote into local — remote wins on conflicts
+    const local  = getMessages();
+    const localMap = {};
+    local.forEach(m => localMap[m.id] = m);
+    remote.forEach(m => localMap[m.id] = m);
+    saveMessages(Object.values(localMap));
+    renderMsgList();
+  }, err => console.warn('Reminder sync error:', err.message));
+}
+
+function initChat() {
+  localChat = getLocalChat();
+  renderChatMessages(localChat);
+
+  const connect = () => {
+    if (!window.FIREBASE_READY) return;
+    document.getElementById('chatNotice').style.display = 'none';
+    initReminderSync();
+    document.getElementById('chatDot').classList.remove('offline');
+    document.getElementById('chatStatusTxt').textContent = 'Connected — real-time 🟢';
+
+    const q = window.fsQuery(
+      window.fsCollection(window.db, 'chatMessages'),
+      window.fsOrderBy('timestamp','asc'),
+      window.fsLimit(200)
+    );
+    if (chatUnsub) chatUnsub();
+    chatUnsub = window.fsOnSnapshot(q, snap => {
+      const msgs = [];
+      snap.forEach(d => msgs.push({ id:d.id, ...d.data() }));
+      localChat = msgs;
+      saveLocalChat(msgs);
+      renderChatMessages(msgs);
+      if (!document.getElementById('pageChat').classList.contains('active')) incrementChatBadge();
+    });
+  };
+  window.addEventListener('firebaseReady', connect);
+  window.addEventListener('firebaseReady', initReminderSync);
+  if (window.FIREBASE_READY) connect();
+}
+
+function renderChatMessages(msgs) {
+  const c = document.getElementById('chatMessages');
+  if (!c) return;
+  if (!msgs.length) {
+    c.innerHTML = `<div class="empty-state"><span class="empty-icon">💬</span><div class="empty-text">No messages yet. Say something sweet! 💌</div></div>`;
+    return;
+  }
+  let html = '', lastDate = '';
+  msgs.forEach(m => {
+    const ts  = m.timestamp?.toDate ? m.timestamp.toDate() : new Date(m.timestamp || Date.now());
+    const ds  = ts.toLocaleDateString('en-PK',{weekday:'short',month:'short',day:'numeric'});
+    if (ds !== lastDate) { html += `<div class="chat-date-div">${ds}</div>`; lastDate = ds; }
+    const sent = m.sender === 'zain';
+    html += `<div class="chat-msg ${sent?'sent':'recv'}">
+      ${!sent ? `<div class="chat-sender">🌸 Fatima</div>` : ''}
+      <div class="chat-bubble">${escHtml(m.text)}</div>
+      <div class="chat-meta">${ts.toLocaleTimeString('en-PK',{hour:'2-digit',minute:'2-digit'})}</div>
+    </div>`;
+  });
+  c.innerHTML = html;
+  scrollChatBottom();
+}
+
+async function sendChatMessage() {
+  const input  = document.getElementById('chatInput');
+  const text   = input.value.trim();
+  if (!text) return;
+  const sender = LS.str('ourstory_chat_user','zain');
+
+  if (window.FIREBASE_READY) {
+    try {
+      await window.fsAdd(window.fsCollection(window.db,'chatMessages'), { text, sender, timestamp: window.fsServerTs() });
+      input.value = ''; chatAutoResize(input); return;
+    } catch(e) { console.warn('Firestore send failed — saving locally', e.message); }
+  }
+  // Local fallback
+  const msg = { id:'local_'+Date.now(), text, sender, timestamp: new Date().toISOString() };
+  localChat  = [...localChat, msg];
+  saveLocalChat(localChat);
+  renderChatMessages(localChat);
+  input.value = ''; chatAutoResize(input);
+}
+
+function toggleChatUser() {
+  const cur   = LS.str('ourstory_chat_user','zain');
+  const next  = cur === 'zain' ? 'fatima' : 'zain';
+  LS.setStr('ourstory_chat_user', next);
+  document.getElementById('chatUserLbl').textContent = next === 'zain' ? 'Zain' : 'Fatima';
+  showToast(`Sending as ${next === 'zain' ? '💛 Zain' : '🌸 Fatima'}`);
+}
+function chatKeyDown(e) { if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); sendChatMessage(); } }
+function chatAutoResize(el) { el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,120)+'px'; }
+function scrollChatBottom() { const c=document.getElementById('chatMessages'); if(c) setTimeout(()=>c.scrollTop=c.scrollHeight,60); }
+function incrementChatBadge() {
+  chatBadge++;
+  ['chatBadge','schatBadge'].forEach(id => { const el=document.getElementById(id); if(el){ el.style.display='block'; el.textContent=chatBadge; } });
+}
+function clearChatBadge() {
+  chatBadge = 0;
+  ['chatBadge','schatBadge'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='none'; });
+}
+
+/* ============================================================
+   BACKUP & EXPORT
+   ============================================================ */
+function updateBackupStats() {
+  const msgs = getMessages(), dq = getDQData(), ow = getOWLetters(), chat = getLocalChat();
+  document.getElementById('bkpMsgSub').textContent  = `${msgs.length} reminders stored`;
+  document.getElementById('bkpDQSub').textContent   = `${Object.keys(dq).length} days answered`;
+  document.getElementById('bkpOWSub').textContent   = `${Object.keys(ow).length} letters written`;
+  document.getElementById('bkpChatSub').textContent = `${chat.length} chat messages`;
+}
+
+function exportData(type) {
+  const ts   = new Date().toISOString().substring(0,10);
+  const data = { exportedAt: new Date().toISOString(), version:'2.0' };
+  let fname  = 'ourstory-backup';
+  if (type==='messages'      || type==='all') data.messages       = getMessages();
+  if (type==='dailyquestions'|| type==='all') data.dailyQuestions = getDQData();
+  if (type==='openwhen'      || type==='all') data.openWhenLetters= getOWLetters();
+  if (type==='chat'          || type==='all') data.chatMessages   = getLocalChat();
+  if (type !== 'all') fname = `ourstory-${type}`;
+
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = `${fname}-${ts}.json`;
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+  showToast('Exported! 📦');
+}
+
+function importBackup(input) {
+  const file = input.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const d = JSON.parse(e.target.result);
+      if (d.messages) {
+        const ex = getMessages(); const ids = new Set(ex.map(m=>m.id));
+        saveMessages([...ex, ...d.messages.filter(m=>!ids.has(m.id))]);
+      }
+      if (d.dailyQuestions) { saveDQData({...d.dailyQuestions, ...getDQData()}); }
+      if (d.openWhenLetters){ saveOWLetters({...d.openWhenLetters, ...getOWLetters()}); }
+      if (d.chatMessages) {
+        const ex = getLocalChat(); const ids = new Set(ex.map(m=>m.id));
+        saveLocalChat([...ex, ...d.chatMessages.filter(m=>!ids.has(m.id))]);
+      }
+      showToast('Imported successfully! 📥');
+      updateBackupStats();
+    } catch(err) { showToast('Import failed — invalid JSON file'); }
+  };
+  reader.readAsText(file);
+}
+
+/* ============================================================
+   SERVICE WORKER & PWA
+   ============================================================ */
+function registerSW() {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(()  => console.log('SW registered'))
+      .catch(e  => console.log('SW failed:', e.message));
+  }
+}
+function initPWA() {
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault();
+    deferredInstall = e;
+    document.getElementById('installBanner').style.display   = 'flex';
+    document.getElementById('headerInstallBtn').style.display = 'flex';
+  });
+  window.addEventListener('appinstalled', () => {
+    document.getElementById('installBanner').style.display = 'none';
+    deferredInstall = null;
+    showToast('App installed! 📲');
+  });
+}
+function triggerInstall() {
+  if (!deferredInstall) return;
+  deferredInstall.prompt();
+  deferredInstall.userChoice.then(r => {
+    if (r.outcome === 'accepted') document.getElementById('installBanner').style.display = 'none';
+    deferredInstall = null;
+  });
+}
+
+/* ============================================================
+   BROWSER NOTIFICATIONS
+   ============================================================ */
+async function requestNotifPermission() {
+  if (!('Notification' in window)) return;
+  const perm = await Notification.requestPermission();
+  const txt  = document.getElementById('sidebarNotifTxt');
+  if (txt) txt.textContent = perm === 'granted' ? 'Notifications On ✅' : 'Notifications Off';
+  if (perm === 'granted' && window.FIREBASE_READY && window.fsMessaging) {
+    try {
+      const token = await window.fsGetToken(window.fsMessaging, { vapidKey: window.fsVapidKey || '' });
+      if (token) await window.fsSetDoc(window.fsDoc(window.db,'users','zain'), { fcmToken:token }, { merge:true });
+    } catch(e) { /* FCM token unavailable on HTTP */ }
+  }
+}
+
+function checkNotifications() {
+  if (!('Notification' in window) || Notification.permission !== 'granted') return;
+  const now = getNow();
+  getMessages().filter(m => m.status==='pending').forEach(m => {
+    const t = parseLocal(m.scheduledTime);
+    if (!t) return;
+    if (Math.abs(t - now) <= 60000 && !notifFired.has(m.id)) {
+      notifFired.add(m.id);
+      new Notification('Our Story 🌸', {
+        body: m.text.substring(0,100),
+        requireInteraction: true,
+        tag: m.id,
+      });
+    }
+  });
+}
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+function showToast(msg) {
+  const t = document.createElement('div');
+  t.className   = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => { t.style.opacity = '0'; }, 2000);
+  setTimeout(() => t.remove(), 2400);
+}
+
+/* ============================================================
+   UTILS
+   ============================================================ */
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+</body>
+</html>
