@@ -1027,11 +1027,12 @@ function markMissedMessages() {
   const now = getNow();
   let msgs = getMessages(), newlyMissed = [];
   msgs = msgs.map(m => {
+    // NEVER touch done messages — only check strictly pending
     if (m.status === 'pending') {
       const t = parseLocal(m.scheduledTime);
       if (t && t < now) { newlyMissed.push(m); return {...m, status:'missed'}; }
     }
-    return m;
+    return m; // done and missed stay exactly as they are
   });
   saveMessages(msgs);
   if (newlyMissed.length) showMissedPopup(newlyMissed);
@@ -1242,7 +1243,11 @@ function saveMsgModal() {
 
   if (editId) {
     const i = msgs.findIndex(m => m.id === editId);
-    if (i >= 0) msgs[i] = { ...msgs[i], text, cat, scheduledTime:sched, month:sched.substring(0,7), status };
+    if (i >= 0) {
+      // Preserve 'done' status — editing a done message should NOT reset it
+      const keepStatus = msgs[i].status === 'done' ? 'done' : status;
+      msgs[i] = { ...msgs[i], text, cat, scheduledTime:sched, month:sched.substring(0,7), status:keepStatus };
+    }
   } else {
     msgs.push({ id:'msg_'+Date.now(), text, cat, scheduledTime:sched, month:sched.substring(0,7), status, createdAt:nowStr(), originalTime:sched });
   }

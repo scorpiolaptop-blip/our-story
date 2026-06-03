@@ -1,49 +1,28 @@
-// Our Story Service Worker v2
-const CACHE_NAME = 'ourstory-v2';
-const STATIC_ASSETS = [
-  './index.html',
-  './manifest.json',
-  'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap'
-];
+// Our Story Service Worker v3
+const CACHE_NAME = 'ourstory-v3';
 
-// Install
 self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(STATIC_ASSETS).catch(() => {});
-    })
-  );
   self.skipWaiting();
 });
 
-// Activate
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
+      Promise.all(keys.map(k => caches.delete(k)))
     )
   );
   self.clients.claim();
 });
 
-// Fetch
+// Simple pass-through — no caching that could cause 404
 self.addEventListener('fetch', event => {
-  if (event.request.url.includes('firestore.googleapis.com') ||
-      event.request.url.includes('firebase') ||
-      event.request.url.includes('anthropic') ||
-      event.request.url.includes('fonts.googleapis') ||
-      event.request.url.includes('fonts.gstatic')) {
-    return;
-  }
+  // Skip non-GET and external requests
+  if (event.request.method !== 'GET') return;
+  if (!event.request.url.includes(self.location.origin)) return;
+  
   event.respondWith(
-    caches.match(event.request).then(cached => {
-      return cached || fetch(event.request).then(response => {
-        if (response && response.status === 200 && response.type === 'basic') {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
-        }
-        return response;
-      }).catch(() => cached);
+    fetch(event.request).catch(() => {
+      return caches.match(event.request);
     })
   );
 });
@@ -51,25 +30,22 @@ self.addEventListener('fetch', event => {
 // Push Notifications
 self.addEventListener('push', event => {
   const data = event.data ? event.data.json() : {};
-  const title = data.title || 'Our Story 🌸';
-  const options = {
-    body: data.body || 'You have a new message 💌',
-    tag: data.tag || 'ourstory-notif',
-    requireInteraction: true,
-    vibrate: [200, 100, 200],
-  };
-  event.waitUntil(self.registration.showNotification(title, options));
+  event.waitUntil(
+    self.registration.showNotification(data.title || 'Our Story 🌸', {
+      body: data.body || 'You have a new message 💌',
+      tag: data.tag || 'ourstory',
+      requireInteraction: true,
+      vibrate: [200, 100, 200],
+    })
+  );
 });
 
-// Notification click
 self.addEventListener('notificationclick', event => {
   event.notification.close();
   event.waitUntil(
     clients.matchAll({ type: 'window' }).then(list => {
-      for (const client of list) {
-        if ('focus' in client) return client.focus();
-      }
-      if (clients.openWindow) return clients.openWindow('./');
+      if (list.length) return list[0].focus();
+      return clients.openWindow('./');
     })
   );
 });
