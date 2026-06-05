@@ -665,62 +665,31 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 <!-- FIREBASE — non-blocking dynamic import -->
 <script>
 // ============================================================
-// FIREBASE CONFIGURATION
-// Replace these placeholder values with your real Firebase project config.
-// Firebase Console → Project Settings → Your Apps → SDK setup & configuration
+// TELEGRAM BOT NOTIFICATIONS
 // ============================================================
-window.FIREBASE_CONFIG = {
-  apiKey:            "YOUR_API_KEY",
-  authDomain:        "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId:         "YOUR_PROJECT_ID",
-  storageBucket:     "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId:             "YOUR_APP_ID"
-};
-// Firebase Console → Project Settings → Cloud Messaging → Web Push certificates
-window.FIREBASE_VAPID_KEY = "YOUR_VAPID_KEY";
+const TELEGRAM_BOT_TOKEN = '8674493026:AAGF229cR3hCkpiWc-SnKFDM4KS6cocMgFQ';
+const TELEGRAM_CHAT_ID   = '8967077974';
 
 window.FIREBASE_READY = false;
 
-// Non-blocking: app works fully without Firebase
-async function initFirebase() {
+async function sendTelegramNotification(message) {
   try {
-    if (window.FIREBASE_CONFIG.apiKey === "YOUR_API_KEY") return;
-    const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js');
-    const { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, doc, setDoc, getDoc, getDocs, limit }
-      = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
-    const { getMessaging, getToken, onMessage }
-      = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js');
-
-    const app = initializeApp(window.FIREBASE_CONFIG);
-    const db  = getFirestore(app);
-    let msg = null;
-    try { msg = getMessaging(app); } catch(e) {}
-
-    window.db           = db;
-    window.fsMessaging  = msg;
-    window.fsAdd        = addDoc;
-    window.fsCollection = collection;
-    window.fsQuery      = query;
-    window.fsOnSnapshot = onSnapshot;
-    window.fsOrderBy    = orderBy;
-    window.fsServerTs   = serverTimestamp;
-    window.fsDoc        = doc;
-    window.fsSetDoc     = setDoc;
-    window.fsGetDoc     = getDoc;
-    window.fsGetDocs    = getDocs;
-    window.fsLimit      = limit;
-    window.fsGetToken   = getToken;
-    window.fsOnMessage  = onMessage;
-    window.FIREBASE_READY = true;
-    window.dispatchEvent(new Event('firebaseReady'));
-    console.log('Firebase connected ✅');
+    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+    await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_CHAT_ID,
+        text: message,
+        parse_mode: 'HTML'
+      })
+    });
+    console.log('Telegram notification sent ✅');
   } catch(e) {
-    console.warn('Firebase not available — running in local mode:', e.message);
-    window.FIREBASE_READY = false;
+    console.warn('Telegram notification failed:', e.message);
   }
 }
-initFirebase(); // fire and forget — does NOT block app load
+window.sendTelegramNotification = sendTelegramNotification;
 </script>
 
 <!-- MAIN APP SCRIPT -->
@@ -737,7 +706,7 @@ const CAT_LABELS = { for_fatima:'💖 For Fatima', for_zain:'💌 For Zain', sha
 const TABS = ['Today','Upcoming','This Month','All','Missed','Done'];
 const NAV_ITEMS = [
   { id:'Home',       icon:'🏠', label:'Home'    },
-  { id:'Chat',       icon:'💬', label:'Chat',     badge:'chatBadge' },
+  // Chat removed by user request
   { id:'AI',         icon:'✨', label:'AI Help'  },
   { id:'DQ',         icon:'🌸', label:'Q&A'      },
   { id:'OW',         icon:'💌', label:'Letters'  },
@@ -1946,18 +1915,28 @@ async function requestNotifPermission() {
 }
 
 function checkNotifications() {
-  if (!('Notification' in window) || Notification.permission !== 'granted') return;
   const now = getNow();
   getMessages().filter(m => m.status==='pending').forEach(m => {
     const t = parseLocal(m.scheduledTime);
     if (!t) return;
     if (Math.abs(t - now) <= 60000 && !notifFired.has(m.id)) {
       notifFired.add(m.id);
-      new Notification('Our Story 🌸', {
-        body: m.text.substring(0,100),
-        requireInteraction: true,
-        tag: m.id,
-      });
+      // Browser notification (when app is open)
+      if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification('Our Story 🌸', {
+          body: m.text.substring(0,100),
+          requireInteraction: true,
+          tag: m.id,
+        });
+      }
+      // Telegram notification (works even when app is closed)
+      const emoji = m.cat === 'for_fatima' ? '💖' : '🌸';
+      const tgMsg = `${emoji} <b>Our Story Reminder</b>
+
+${m.text}
+
+<i>📅 ${fmtDate(m.scheduledTime)} ${fmtTime(m.scheduledTime)}</i>`;
+      sendTelegramNotification(tgMsg);
     }
   });
 }
@@ -1983,26 +1962,5 @@ function escHtml(s) {
     .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 </script>
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyAXqK0dZe1EXG9IVbfKPWjSZ2V2hGowbgk",
-  authDomain: "our-story-511.firebaseapp.com",
-  projectId: "our-story-511",
-  storageBucket: "our-story-511.firebasestorage.app",
-  messagingSenderId: "79968469808",
-  appId: "1:79968469808:web:af421c85a1b1039241fef5",
-  measurementId: "G-BB9VXR558R"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);   
 </body>
 </html>
