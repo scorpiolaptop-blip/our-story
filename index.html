@@ -17,7 +17,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230A0A0C'/><text x='50' y='62' font-size='46' text-anchor='middle' fill='%23D9A867'>✦</text></svg>"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 <style>
 /* ============================================================
    TOKENS
@@ -121,40 +121,41 @@ body{
 /* ============================================================
    APP SHELL
    ============================================================ */
-#app{display:none;position:relative;z-index:2;min-height:100vh}
-.app-header{position:sticky;top:0;z-index:100;padding:16px 20px 10px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(6px)}
+#app{display:none;flex-direction:column;position:relative;z-index:2;height:100vh;height:100dvh;overflow:hidden}
+.app-header{flex-shrink:0;position:relative;z-index:100;padding:16px 20px 10px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(6px)}
 .header-title{font-family:var(--font-display);font-style:italic;font-size:19px;color:var(--star-gold);letter-spacing:0.3px}
 .header-btn{width:36px;height:36px;background:rgba(245,239,234,0.06);border:1px solid var(--glass-brd);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;transition:all 0.2s}
 .header-btn:active{transform:scale(0.92)}
 
-.install-banner{background:rgba(245,239,234,0.06);border:1px solid var(--glass-brd);border-radius:var(--r-md);padding:12px 14px;margin:0 16px 10px;display:none;align-items:center;gap:12px;backdrop-filter:blur(7px)}
+.install-banner{flex-shrink:0;background:rgba(245,239,234,0.06);border:1px solid var(--glass-brd);border-radius:var(--r-md);padding:12px 14px;margin:0 16px 10px;display:none;align-items:center;gap:12px;backdrop-filter:blur(7px)}
 .install-banner-text{flex:1;font-size:12.5px;color:var(--ivory)}
 .install-banner-text strong{color:var(--star-gold);display:block;font-size:13px;margin-bottom:1px;font-family:var(--font-display);font-style:italic}
 .install-banner-btn{padding:8px 14px;background:linear-gradient(135deg,var(--rose-gold),var(--star-gold));border:none;border-radius:8px;color:var(--void);font-size:11.5px;font-weight:700;cursor:pointer;white-space:nowrap}
 .install-banner-close{background:none;border:none;font-size:16px;color:var(--lavender);cursor:pointer;padding:4px}
 
 /* CHAPTERS — horizontal snap scroll */
-#chapters{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;width:100%;-webkit-overflow-scrolling:touch}
-.chapter{flex:0 0 100%;width:100%;scroll-snap-align:start;min-height:calc(100vh - 170px);padding:8px 20px 40px;max-width:520px;margin:0 auto}
+#chapters{display:flex;flex:1;min-height:0;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;width:100%;-webkit-overflow-scrolling:touch}
+.chapter{flex:0 0 100%;width:100%;height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;scroll-snap-align:start;padding:8px 20px 80px;max-width:520px;margin:0 auto}
 .chapter-eyebrow{font-size:10px;font-weight:600;color:var(--lavender);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
 .chapter-heading{font-family:var(--font-display);font-style:italic;font-size:24px;color:var(--ivory);margin-bottom:18px}
 
-#pageDots{position:sticky;bottom:14px;display:flex;justify-content:center;gap:7px;z-index:100;padding-top:8px}
+#pageDots{flex-shrink:0;position:relative;display:flex;justify-content:center;gap:7px;z-index:100;padding:10px 0 12px;background:rgb(var(--tint-a))}
 .pdot{width:6px;height:6px;border-radius:50%;background:rgba(245,239,234,0.25);cursor:pointer;transition:all 0.3s}
 .pdot.active{background:var(--star-gold);width:18px;border-radius:3px;box-shadow:0 0 8px rgba(217,168,103,0.6)}
 
 /* ============================================================
    HOME — ORBIT
    ============================================================ */
-.orbit-wrap{display:flex;flex-direction:column;align-items:center;padding:18px 0 8px}
+.orbit-wrap{position:relative;display:flex;flex-direction:column;align-items:center;padding:18px 0 8px}
 .orbit-svg{width:220px;height:220px;overflow:visible}
-.orbit-track{fill:none;stroke:rgba(245,239,234,0.16);stroke-width:1.5}
-.orbit-progress{fill:none;stroke:url(#orbitGrad);stroke-width:2;stroke-linecap:round;transition:stroke-dashoffset 0.6s ease}
-.orbit-center{text-align:center}
+.orbit-track{fill:none;stroke:url(#orbitGrad);stroke-width:2.5;opacity:0.9}
+.orbit-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;width:180px}
 .orbit-days{font-family:var(--font-mono);font-size:34px;font-weight:600;color:var(--star-gold);line-height:1}
 .orbit-days-lbl{font-size:10px;color:var(--lavender);letter-spacing:1.5px;text-transform:uppercase;margin-top:4px}
+.milestone-bar-wrap{max-width:280px;margin:2px auto 0;text-align:center}
+.milestone-bar{height:5px;border-radius:3px;background:rgba(245,239,234,0.1);overflow:hidden}
+.milestone-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--rose-gold),var(--star-gold));width:0%;transition:width 0.8s ease}
 .orbit-sub{font-size:10.5px;color:var(--star-gold);margin-top:8px;letter-spacing:0.3px;font-weight:500}
-.orbit-star{fill:var(--star-gold);filter:drop-shadow(0 0 5px rgba(217,168,103,0.9))}
 
 .stat-row{display:flex;gap:8px;justify-content:center;margin:18px 0 22px;flex-wrap:wrap}
 .stat-chip{background:var(--glass);border:1px solid var(--glass-brd);border-radius:14px;padding:9px 13px;text-align:center;backdrop-filter:blur(7px);min-width:64px}
@@ -253,6 +254,35 @@ body{
 .dq-history-ans{font-size:12px;color:var(--lavender);margin-top:3px}
 
 /* ============================================================
+   STREAK / MOOD / JOURNAL / ON-THIS-DAY / COUNTDOWN
+   ============================================================ */
+.streak-badge{display:inline-flex;align-items:center;gap:6px;background:var(--glass);border:1px solid var(--glass-brd-hi);border-radius:14px;padding:6px 13px;font-size:12px;color:var(--star-gold);font-weight:600;margin-bottom:16px}
+
+.mood-row{display:flex;justify-content:space-between;gap:6px;margin-top:4px}
+.mood-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 4px;border-radius:14px;border:1px solid var(--glass-brd);background:rgba(245,239,234,0.03);cursor:pointer;transition:all 0.2s;color:var(--lavender)}
+.mood-btn svg{width:22px;height:22px}
+.mood-btn.selected{border-color:var(--glass-brd-hi);background:rgba(217,168,103,0.1);color:var(--star-gold);transform:scale(1.05)}
+.mood-btn-lbl{font-size:9px;letter-spacing:0.3px}
+.mood-history{display:flex;align-items:flex-end;gap:3px;height:36px;margin-top:14px}
+.mood-bar{flex:1;border-radius:3px 3px 0 0;background:linear-gradient(180deg,var(--star-gold),var(--rose-gold));opacity:0.85;min-height:3px}
+
+.countdown-card{background:linear-gradient(135deg,rgba(217,168,103,0.1),rgba(201,123,132,0.06));border:1px solid var(--glass-brd-hi);border-radius:var(--r-lg);padding:16px 18px;margin-bottom:14px}
+.countdown-num{font-family:var(--font-mono);font-size:28px;color:var(--star-gold);font-weight:600}
+.countdown-lbl{font-size:12px;color:var(--ivory);margin-top:2px}
+
+.otd-card{background:rgba(245,239,234,0.03);border:1px dashed var(--glass-brd-hi);border-radius:var(--r-md);padding:14px;margin-bottom:16px}
+.otd-eyebrow{font-size:10px;color:var(--star-gold);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;font-weight:600}
+.otd-text{font-size:13px;color:var(--ivory);font-style:italic;line-height:1.5}
+
+.journal-card{background:var(--glass);border:1px solid var(--glass-brd);border-radius:18px;padding:15px;margin-bottom:11px;backdrop-filter:blur(7px)}
+.journal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.journal-who{font-size:12px;font-weight:600;color:var(--star-gold)}
+.journal-date{font-size:10.5px;color:var(--lavender);font-family:var(--font-mono)}
+.journal-text{font-size:13.5px;line-height:1.6;color:var(--ivory);white-space:pre-wrap;margin-bottom:8px}
+.journal-photo{width:100%;border-radius:12px;max-height:220px;object-fit:cover;margin-bottom:8px}
+.journal-del{font-size:11px;color:#e08fa0;cursor:pointer;background:none;border:none;padding:0}
+
+/* ============================================================
    SETTINGS
    ============================================================ */
 .settings-group{margin-bottom:20px}
@@ -342,7 +372,7 @@ body{
   <div class="app-header">
     <div class="header-title">Our Story</div>
     <div style="display:flex;gap:8px">
-      <div class="header-btn" onclick="scrollToChapter(5)">⚙</div>
+      <div class="header-btn" onclick="scrollToChapter(6)">⚙</div>
     </div>
   </div>
 
@@ -363,16 +393,18 @@ body{
             <stop offset="0%" stop-color="#C97B84"/><stop offset="100%" stop-color="#D9A867"/>
           </linearGradient></defs>
           <circle class="orbit-track" cx="110" cy="110" r="96"/>
-          <circle class="orbit-progress" id="orbitProgress" cx="110" cy="110" r="96" stroke-dasharray="603" stroke-dashoffset="603" transform="rotate(-90 110 110)"/>
-          <circle class="orbit-star" id="orbitStar" cx="110" cy="14" r="4.5"/>
         </svg>
-        <div class="orbit-center" style="margin-top:-140px">
+        <div class="orbit-center">
           <div class="orbit-days" id="orbitDaysNum">0</div>
           <div class="orbit-days-lbl">days together</div>
-          <div class="orbit-sub" id="orbitSubLabel"></div>
         </div>
       </div>
+      <div class="milestone-bar-wrap">
+        <div class="milestone-bar"><div class="milestone-bar-fill" id="milestoneBarFill"></div></div>
+        <div class="orbit-sub" id="orbitSubLabel"></div>
+      </div>
       <div class="stat-row" id="statRow"></div>
+      <div id="countdownWrap"></div>
 
       <div class="glass-card" id="sheenA">
         <div class="card-eyebrow">✦ Today, for you</div>
@@ -427,6 +459,7 @@ body{
     <section class="chapter" id="chQA">
       <div class="chapter-eyebrow">Chapter Five</div>
       <div class="chapter-heading">Daily Question</div>
+      <div class="streak-badge" id="streakBadge"></div>
       <div class="glass-card">
         <div class="dq-date" id="dqDateLbl"></div>
         <div class="dq-question" id="dqQuestion"></div>
@@ -437,9 +470,27 @@ body{
       <div id="dqHistory"></div>
     </section>
 
-    <!-- 5: SETTINGS -->
-    <section class="chapter" id="chSettings">
+    <!-- 5: JOURNAL -->
+    <section class="chapter" id="chJournal">
       <div class="chapter-eyebrow">Chapter Six</div>
+      <div class="chapter-heading">Our Journal</div>
+
+      <div class="glass-card">
+        <div class="card-eyebrow">How are you feeling today?</div>
+        <div class="mood-row" id="moodRow"></div>
+      </div>
+
+      <div id="onThisDayWrap"></div>
+
+      <div class="tabs-row">
+        <button class="tab-btn active" onclick="openJournalModal()" style="background:none;border-style:dashed">＋ New entry</button>
+      </div>
+      <div id="journalList"></div>
+    </section>
+
+    <!-- 6: SETTINGS -->
+    <section class="chapter" id="chSettings">
+      <div class="chapter-eyebrow">Chapter Seven</div>
       <div class="chapter-heading">Settings</div>
 
       <div class="settings-group">
@@ -447,6 +498,16 @@ body{
         <div class="nickname-pills">
           <span class="nickname-pill">Sweetie</span><span class="nickname-pill">Bacha</span>
           <span class="nickname-pill">Kakky</span><span class="nickname-pill">Wifey</span><span class="nickname-pill">Goldie</span>
+        </div>
+      </div>
+
+      <div class="settings-group">
+        <div class="settings-group-title">Next Time Together</div>
+        <div class="form-group"><label class="form-label">Label</label><input type="text" class="form-input" id="countdownLabel" placeholder="e.g. Visiting her / Video call trip"/></div>
+        <div class="form-group"><label class="form-label">Date</label><input type="date" class="form-input" id="countdownDate"/></div>
+        <div class="form-btn-row">
+          <button class="btn-secondary" style="flex:1" onclick="clearCountdown()">Clear</button>
+          <button class="btn-primary" style="flex:1" onclick="saveCountdown()">Save</button>
         </div>
       </div>
 
@@ -555,6 +616,26 @@ body{
   </div>
 </div>
 
+<div class="modal-overlay" id="journalModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">New Journal Entry</div>
+    <div class="form-group"><label class="form-label">Written by</label>
+      <select class="form-select" id="journalWho"><option value="zain">💛 Zain</option><option value="fatima">🌸 Fatima</option></select>
+    </div>
+    <div class="form-group"><textarea class="form-textarea" id="journalText" placeholder="What's on your mind today..."></textarea></div>
+    <div class="form-group">
+      <label class="form-label">Photo (optional)</label>
+      <input type="file" accept="image/*" id="journalPhotoInput" onchange="handleJournalPhoto(event)"/>
+      <img id="journalPhotoPreview" style="display:none;width:100%;border-radius:12px;margin-top:8px;max-height:200px;object-fit:cover"/>
+    </div>
+    <div class="form-btn-row">
+      <button class="btn-secondary" onclick="closeJournalModal()">Cancel</button>
+      <button class="btn-primary" onclick="saveJournalEntry()">Save entry</button>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ============================================================
    CONSTANTS
@@ -583,6 +664,12 @@ const getOWLetters  = ()   => LS.get('ourstory_ow','{}');
 const saveOWLetters = d    => LS.set('ourstory_ow', d);
 const getDQData     = ()   => LS.get('ourstory_dq','{}');
 const saveDQData    = d    => LS.set('ourstory_dq', d);
+const getJournal    = ()   => LS.get('ourstory_journal');
+const saveJournal    = d   => LS.set('ourstory_journal', d);
+const getMoods      = ()   => LS.get('ourstory_moods','{}');
+const saveMoods     = d    => LS.set('ourstory_moods', d);
+const getCountdownData  = () => LS.get('ourstory_countdown','null');
+const saveCountdownData = d  => LS.set('ourstory_countdown', d);
 
 /* ============================================================
    LOGIN FLOW
@@ -614,7 +701,7 @@ function attemptLogin(){
       document.getElementById('loginScreen').style.opacity='0';
       setTimeout(()=>{
         document.getElementById('loginScreen').style.display='none';
-        document.getElementById('app').style.display='block';
+        document.getElementById('app').style.display='flex';
         initApp();
       },700);
     },550);
@@ -827,14 +914,17 @@ setTimeout(()=>{
 /* ============================================================
    CHAPTER NAV (swipe + dots)
    ============================================================ */
-const CHAPTER_IDS = ['chHome','chMessages','chJourney','chLetters','chQA','chSettings'];
+const CHAPTER_IDS = ['chHome','chMessages','chJourney','chLetters','chQA','chJournal','chSettings'];
 let currentChapter = 0;
 function buildDots(){
   const wrap = document.getElementById('pageDots');
   wrap.innerHTML = CHAPTER_IDS.map((_,i)=>`<div class="pdot${i===0?' active':''}" onclick="scrollToChapter(${i})"></div>`).join('');
 }
 function scrollToChapter(i){
-  document.getElementById(CHAPTER_IDS[i]).scrollIntoView({ behavior:'smooth', inline:'start', block:'nearest' });
+  const wrap = document.getElementById('chapters');
+  const target = document.getElementById(CHAPTER_IDS[i]);
+  if (!wrap || !target) return;
+  wrap.scrollTo({ left: target.offsetLeft, behavior:'smooth' });
 }
 document.getElementById('chapters').addEventListener('scroll', ()=>{
   const wrap = document.getElementById('chapters');
@@ -843,8 +933,9 @@ document.getElementById('chapters').addEventListener('scroll', ()=>{
     currentChapter = idx;
     document.querySelectorAll('.pdot').forEach((d,i)=>d.classList.toggle('active', i===idx));
     if (CHAPTER_IDS[idx]==='chJourney') renderMilestones();
-    if (CHAPTER_IDS[idx]==='chQA') renderDQPage();
+    if (CHAPTER_IDS[idx]==='chQA') { renderDQPage(); renderStreak(); }
     if (CHAPTER_IDS[idx]==='chLetters') renderOWGrid();
+    if (CHAPTER_IDS[idx]==='chJournal') { renderMoodRow(); renderJournalList(); renderOnThisDay(); }
   }
 }, {passive:true});
 
@@ -865,9 +956,8 @@ function renderHome(){
     {n:years,l:'years'},{n:months,l:'months'},{n:days,l:'days'},{n:hours,l:'hours'}
   ].map(s=>`<div class="stat-chip"><div class="stat-num">${s.n.toLocaleString()}</div><div class="stat-lbl">${s.l}</div></div>`).join('');
 
-  // orbit progress = how close we are to the NEXT real milestone (ties into the Journey chapter)
+  // milestone progress = how close we are to the NEXT real milestone (ties into the Journey chapter)
   const sortedMiles = MILESTONE_DAYS.slice().sort((a,b)=>a-b);
-  const circumference = 603; // 2*PI*96 approx
   let frac, subLabel;
   const upcoming = sortedMiles.find(d => d > totalDays);
   if (upcoming === undefined){
@@ -881,12 +971,7 @@ function renderHome(){
     const label = MILESTONE_LABELS[upcoming] || `${upcoming.toLocaleString()} Days Together`;
     subLabel = `${daysLeft.toLocaleString()} days → ${label}`;
   }
-  const offset = circumference - (circumference*frac);
-  document.getElementById('orbitProgress').style.strokeDashoffset = offset;
-  const ang = frac*Math.PI*2 - Math.PI/2;
-  const cx = 110 + 96*Math.cos(ang), cy = 110 + 96*Math.sin(ang);
-  document.getElementById('orbitStar').setAttribute('cx', cx);
-  document.getElementById('orbitStar').setAttribute('cy', cy);
+  document.getElementById('milestoneBarFill').style.width = (frac*100)+'%';
   document.getElementById('orbitSubLabel').textContent = subLabel;
 
   document.getElementById('homeTodayMsg').textContent = getTodayFeaturedMessage();
@@ -1248,6 +1333,189 @@ function saveDQAnswer(){
 }
 
 /* ============================================================
+   STREAK — consecutive days both answered the daily question
+   ============================================================ */
+function renderStreak(){
+  const data = getDQData();
+  let streak = 0;
+  let cursor = getNow();
+  // if today isn't answered by both yet, start counting from yesterday so today doesn't zero it out mid-day
+  const todayKey = dqKey(cursor);
+  const todayDone = data[todayKey] && data[todayKey].answers.zain && data[todayKey].answers.fatima;
+  if (!todayDone) cursor = new Date(cursor.getTime() - 864e5);
+  while (true){
+    const key = dqKey(cursor);
+    const entry = data[key];
+    if (entry && entry.answers && entry.answers.zain && entry.answers.fatima){
+      streak++;
+      cursor = new Date(cursor.getTime() - 864e5);
+    } else break;
+  }
+  if (todayDone) streak++;
+  const el = document.getElementById('streakBadge');
+  if (!el) return;
+  el.innerHTML = streak > 0
+    ? `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L5 14H11L10 22L19 9H13L14 2Z"/></svg> ${streak}-day streak answering together`
+    : `Answer together today to start a streak`;
+}
+
+/* ============================================================
+   MOOD CHECK-IN
+   ============================================================ */
+const MOODS = [
+  { id:'great', label:'Great', svg:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8 10h.01M16 10h.01M7.5 14.5c1 1.8 2.7 2.5 4.5 2.5s3.5-.7 4.5-2.5"/></svg>` },
+  { id:'good',  label:'Good',  svg:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8 10h.01M16 10h.01M8 15c1.2 1 2.5 1.5 4 1.5s2.8-.5 4-1.5"/></svg>` },
+  { id:'okay',  label:'Okay',  svg:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8 10h.01M16 10h.01M8 15h8"/></svg>` },
+  { id:'low',   label:'Low',   svg:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8 10h.01M16 10h.01M8 16c1.2-1 2.5-1.5 4-1.5s2.8.5 4 1.5"/></svg>` },
+  { id:'rough', label:'Rough', svg:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8 11l2-1.5M16 11l-2-1.5M8 17c1.2-1.6 2.5-2.4 4-2.4s2.8.8 4 2.4"/></svg>` },
+];
+const MOOD_VALUE = { great:5, good:4, okay:3, low:2, rough:1 };
+function moodDateKey(d){ return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; }
+function renderMoodRow(){
+  const today = moodDateKey(getNow());
+  const moods = getMoods();
+  const selected = moods[today];
+  const row = document.getElementById('moodRow');
+  if (!row) return;
+  row.innerHTML = MOODS.map(m=>
+    `<div class="mood-btn${m.id===selected?' selected':''}" onclick="selectMood('${m.id}')">${m.svg}<span class="mood-btn-lbl">${m.label}</span></div>`).join('');
+  renderMoodHistory();
+}
+function selectMood(id){
+  const moods = getMoods();
+  moods[moodDateKey(getNow())] = id;
+  saveMoods(moods);
+  renderMoodRow();
+}
+function renderMoodHistory(){
+  const moods = getMoods();
+  const now = getNow();
+  const bars = [];
+  for (let i=13;i>=0;i--){
+    const d = new Date(now.getTime() - i*864e5);
+    const val = MOOD_VALUE[moods[moodDateKey(d)]] || 0;
+    bars.push(val);
+  }
+  const max = 5;
+  const wrap = document.getElementById('moodRow');
+  if (!wrap) return;
+  const existing = document.getElementById('moodHistoryBars');
+  if (existing) existing.remove();
+  const histDiv = document.createElement('div');
+  histDiv.className = 'mood-history'; histDiv.id = 'moodHistoryBars';
+  histDiv.innerHTML = bars.map(v => `<div class="mood-bar" style="height:${Math.max(8,(v/max)*100)}%;opacity:${v?0.85:0.15}"></div>`).join('');
+  wrap.parentElement.appendChild(histDiv);
+}
+
+/* ============================================================
+   JOURNAL — shared-style entries with optional photo
+   (stored locally per device; syncing across devices is a separate step)
+   ============================================================ */
+let pendingJournalPhoto = null;
+function openJournalModal(){
+  document.getElementById('journalText').value = '';
+  document.getElementById('journalPhotoInput').value = '';
+  document.getElementById('journalPhotoPreview').style.display = 'none';
+  pendingJournalPhoto = null;
+  document.getElementById('journalModal').classList.add('open');
+}
+function closeJournalModal(){ document.getElementById('journalModal').classList.remove('open'); }
+function handleJournalPhoto(e){
+  const file = e.target.files[0]; if (!file) return;
+  if (file.size > 3*1024*1024){ showToast('Photo too large — under 3MB please'); e.target.value=''; return; }
+  const reader = new FileReader();
+  reader.onload = () => {
+    pendingJournalPhoto = reader.result;
+    const preview = document.getElementById('journalPhotoPreview');
+    preview.src = reader.result; preview.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+}
+function saveJournalEntry(){
+  const who = document.getElementById('journalWho').value;
+  const text = document.getElementById('journalText').value.trim();
+  if (!text && !pendingJournalPhoto){ showToast('Write something or add a photo first'); return; }
+  const entries = getJournal();
+  entries.unshift({ id:'j_'+Date.now(), who, text, photo:pendingJournalPhoto, createdAt:new Date().toISOString() });
+  saveJournal(entries);
+  closeJournalModal(); renderJournalList();
+  showToast('Journal entry saved ✦');
+}
+function deleteJournalEntry(id){
+  if (!confirm('Delete this entry?')) return;
+  saveJournal(getJournal().filter(e=>e.id!==id));
+  renderJournalList();
+}
+function renderJournalList(){
+  const list = document.getElementById('journalList');
+  if (!list) return;
+  const entries = getJournal();
+  if (!entries.length){ list.innerHTML = `<div class="empty-state"><span class="empty-icon">✦</span><div class="empty-text">No entries yet — write the first one.</div></div>`; return; }
+  list.innerHTML = entries.map(e=>{
+    const d = new Date(e.createdAt);
+    const dateStr = d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+    return `<div class="journal-card">
+      <div class="journal-head"><div class="journal-who">${e.who==='zain'?'💛 Zain':'🌸 Fatima'}</div><div class="journal-date">${dateStr}</div></div>
+      ${e.photo ? `<img class="journal-photo" src="${e.photo}"/>` : ''}
+      ${e.text ? `<div class="journal-text">${escHtml(e.text)}</div>` : ''}
+      <button class="journal-del" onclick="deleteJournalEntry('${e.id}')">Delete</button>
+    </div>`;
+  }).join('');
+}
+
+/* ============================================================
+   ON THIS DAY
+   ============================================================ */
+function renderOnThisDay(){
+  const wrap = document.getElementById('onThisDayWrap');
+  if (!wrap) return;
+  const now = getNow();
+  const entries = getJournal();
+  const match = entries.find(e=>{
+    const d = new Date(e.createdAt);
+    return d.getDate()===now.getDate() && d.getMonth()===now.getMonth() && d.getFullYear()!==now.getFullYear();
+  });
+  if (!match){ wrap.innerHTML = ''; return; }
+  const yearsAgo = now.getFullYear() - new Date(match.createdAt).getFullYear();
+  wrap.innerHTML = `<div class="otd-card">
+    <div class="otd-eyebrow">On this day, ${yearsAgo} year${yearsAgo>1?'s':''} ago</div>
+    <div class="otd-text">${escHtml(match.text || '(a photo memory)')}</div>
+  </div>`;
+}
+
+/* ============================================================
+   COUNTDOWN TO NEXT TIME TOGETHER
+   ============================================================ */
+function renderCountdown(){
+  const data = getCountdownData();
+  const wrap = document.getElementById('countdownWrap');
+  if (!wrap) return;
+  if (!data || !data.date){ wrap.innerHTML=''; return; }
+  const target = new Date(data.date+'T00:00:00');
+  const now = getNow();
+  const daysLeft = Math.ceil((target - now)/864e5);
+  wrap.innerHTML = `<div class="countdown-card">
+    <div class="countdown-num">${daysLeft>0?daysLeft.toLocaleString():'Today'}${daysLeft>0?' days':''}</div>
+    <div class="countdown-lbl">${daysLeft>0?'until':''} ${escHtml(data.label||'we\'re together again')}</div>
+  </div>`;
+}
+function saveCountdown(){
+  const label = document.getElementById('countdownLabel').value.trim();
+  const date = document.getElementById('countdownDate').value;
+  if (!date){ showToast('Pick a date first'); return; }
+  saveCountdownData({ label, date });
+  renderCountdown();
+  showToast('Countdown saved ✦');
+}
+function clearCountdown(){
+  saveCountdownData(null);
+  document.getElementById('countdownLabel').value = '';
+  document.getElementById('countdownDate').value = '';
+  renderCountdown();
+  showToast('Countdown cleared');
+}
+
+/* ============================================================
    SETTINGS — sound/motion toggles, AI helper, backup
    ============================================================ */
 function toggleMotion(){
@@ -1312,6 +1580,7 @@ async function generateAIMessage(){
 function exportAll(){
   const backup = {
     messages: getMessages(), owLetters: getOWLetters(), dq: getDQData(),
+    journal: getJournal(), moods: getMoods(), countdown: getCountdownData(),
     exportedAt: new Date().toISOString()
   };
   const blob = new Blob([JSON.stringify(backup,null,2)], {type:'application/json'});
@@ -1329,8 +1598,11 @@ function importBackup(e){
       if (data.messages) saveMessages([...getMessages(), ...data.messages]);
       if (data.owLetters) saveOWLetters({...getOWLetters(), ...data.owLetters});
       if (data.dq) saveDQData({...getDQData(), ...data.dq});
+      if (data.journal) saveJournal([...getJournal(), ...data.journal]);
+      if (data.moods) saveMoods({...getMoods(), ...data.moods});
+      if (data.countdown) saveCountdownData(data.countdown);
       showToast('Backup imported ✦');
-      renderMsgList();
+      renderMsgList(); renderJournalList(); renderMoodRow(); renderCountdown();
     }catch(err){ showToast('Could not read that file'); }
   };
   reader.readAsText(file);
@@ -1358,8 +1630,15 @@ function initApp(){
   renderMsgList();
   renderOWGrid();
   renderDQPage();
+  renderStreak();
+  renderMoodRow();
+  renderJournalList();
+  renderOnThisDay();
+  renderCountdown();
   checkApiKeyUI();
-  setInterval(()=>{ renderHome(); }, 60000);
+  const cd = getCountdownData();
+  if (cd){ document.getElementById('countdownLabel').value = cd.label||''; document.getElementById('countdownDate').value = cd.date||''; }
+  setInterval(()=>{ renderHome(); renderCountdown(); }, 60000);
 }
 </script>
 </body>
